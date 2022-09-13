@@ -1,10 +1,10 @@
-﻿@model BusinessObjectModel_Students.Students
+﻿@model BusinessObjectModel.Students
 
 
 <div class="form-group">
     @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-4" })
     <div class="col-md-8">
-        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.EditorFor(model => model.Name, ViewBag.readOnly == true ? (object)new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } } : (object)new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
     </div>
 </div>
@@ -12,7 +12,7 @@
 <div class="form-group">
     @Html.LabelFor(model => model.Lastname, htmlAttributes: new { @class = "control-label col-md-4" })
     <div class="col-md-8">
-        @Html.EditorFor(model => model.Lastname, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.EditorFor(model => model.Lastname, ViewBag.readOnly == true ? (object)new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } } : (object)new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.Lastname, "", new { @class = "text-danger" })
     </div>
 </div>
@@ -20,7 +20,7 @@
 <div class="form-group">
     @Html.LabelFor(model => model.House_Address, htmlAttributes: new { @class = "control-label col-md-4" })
     <div class="col-md-8">
-        @Html.EditorFor(model => model.House_Address, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.EditorFor(model => model.House_Address, ViewBag.readOnly == true ? (object)new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } } : (object)new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.House_Address, "", new { @class = "text-danger" })
     </div>
 </div>
@@ -28,7 +28,7 @@
 <div class="form-group">
     @Html.LabelFor(model => model.Birthday_date, htmlAttributes: new { @class = "control-label col-md-4" })
     <div class="col-md-8">
-        @Html.EditorFor(model => model.Birthday_date, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.EditorFor(model => model.Birthday_date, ViewBag.readOnly == true ? (object)new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } } : (object)new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.Birthday_date, "", new { @class = "text-danger" })
     </div>
 </div>
@@ -36,7 +36,7 @@
 <div class="form-group">
     @Html.LabelFor(model => model.Phone_Number, htmlAttributes: new { @class = "control-label col-md-4" })
     <div class="col-md-8">
-        @Html.EditorFor(model => model.Phone_Number, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.EditorFor(model => model.Phone_Number, ViewBag.readOnly == true ? (object)new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } } : (object)new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.Phone_Number, "", new { @class = "text-danger" })
     </div>
 </div>
@@ -44,7 +44,7 @@
 <div class="form-group">
     @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-4" })
     <div class="col-md-8">
-        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.EditorFor(model => model.Email, ViewBag.readOnly == true ? (object)new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } } : (object)new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
     </div>
 </div>

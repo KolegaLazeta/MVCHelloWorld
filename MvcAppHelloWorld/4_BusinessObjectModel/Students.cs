@@ -13,14 +13,11 @@ namespace BusinessObjectModel
         public int ID { get; set; }
         public string Name { get; set; }
         public string Lastname { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public DateTime Birthday_date { get; set; }
         public string Email { get; set; }
         public string Phone_Number { get; set; }
         public string House_Address { get; set; }
-        //public TypeOfStudent Type_of_Student { get; set; }
-
-        //Test
-        //public static Students CreateNewStudent(int ID, string Name, string Lastname, string Birthday_date, string Email, string Phone_Number, string House_Address, string Type_of_Student)
     }
 
 }

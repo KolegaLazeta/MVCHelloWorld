@@ -1,7 +1,5 @@
 ﻿using System.Data.Entity;
 using BusinessObjectModel;
-using BusinessObjectModel;
-using BusinessObjectModel;
 
 namespace DataAccess
 {

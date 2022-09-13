@@ -18,14 +18,18 @@ namespace Controllers
             return View("Index", studentList);
         }
 
-        public ActionResult GetByID(int id)
+        public ActionResult Edit(int id)
         {
+            ViewBag.readOnly = false;
+            ViewBag.disabled = "";
             var student = _studentsService.GetByID(id);
-            return View("Edit", student);
+            return View("Details", student);
         }
 
         public ActionResult Details(int id)
         {
+            ViewBag.readOnly = true;
+            ViewBag.disabled = "disabled";
             var student = _studentsService.GetByID(id);
             return View("Details", student);
         }
@@ -50,7 +54,7 @@ namespace Controllers
             return View("Details", obj);
         }
 
-        public ActionResult DeleteS(int id)
+        public ActionResult Delete(int id)
         {
             try
             {

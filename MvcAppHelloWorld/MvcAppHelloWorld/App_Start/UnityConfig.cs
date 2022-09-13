@@ -1,7 +1,6 @@
 using DataAccess;
 using BusinessLayer;
 using BusinessObjectModel;
-using BusinessObjectModel;
 using System.Web.Mvc;
 using Unity;
 using Unity.Mvc5;
