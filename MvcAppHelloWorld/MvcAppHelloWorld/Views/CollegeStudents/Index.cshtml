@@ -10,7 +10,7 @@
     <div class="row d-flex justify-content-end">
         <div class="col-md-9 pt-2">
             <div class="create mt-2">
-                @Html.ActionLink("Add Student", "Create", new { @class = "btn btn-primary btn-sm" })</div>
+                @Html.ActionLink("Add Student", "Create", "CollegeStudents", new { @class = "btn btn-primary btn-sm" })</div>
             </div>
         <div class="col-md-3">
             @using (Html.BeginForm("Search", "CollegeStudents", FormMethod.Get))

@@ -4,15 +4,22 @@
     ViewBag.Title = "List of High School Students";
 }
 <h2>High School Students</h2>
-<p>
-    @Html.ActionLink("Create New High School Student", "Create")
-    @using (Html.BeginForm("Search", "HighSchool", FormMethod.Get))
-    {
-    <p>
-        @Html.TextBox("SearchString")
-        <input type="submit" value="Search" />
-    </p>
-}
+<div class="row d-flex justify-content-end">
+    <div class="col-md-9 pt-2">
+        <div class="create mt-2">
+            @Html.ActionLink("Add Student", "Create", "HighSchoolStudents", new { @class = "btn btn-primary btn-sm" })
+        </div>
+    </div>
+    <div class="col-md-3">
+        @using (Html.BeginForm("Search", "HighSchoolStudents", FormMethod.Get))
+        {
+            <p>
+                @Html.TextBox("SearchString")
+                <input type="submit" value="Search" class="btn btn-primary btn-sm" />
+            </p>
+        }
+    </div>
+</div>
 <table class="table">
     <tr>
         <th>
