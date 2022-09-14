@@ -37,7 +37,7 @@
 }
 <div>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-primary btn-sm" })
-    @Html.ActionLink("Back to List", "Index", new { @class = "btn btn-primary btn-sm" })
+    @Html.ActionLink("Back to List", "Index", "HighSchool", new { @class = "btn btn-primary btn-sm" })
     @Html.ActionLink("Download Details", "Export", new { id = Model.ID }, new { @class = "btn btn-primary btn-sm" })
     <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">Delete</button>
 </div>
