@@ -4,7 +4,7 @@
     ViewBag.Title = "Details";
 }
 <h2>Edit College Students</h2>
-@using (Html.BeginForm("EditStudentDetails", "CollegeStudents", FormMethod.Post))
+@using (Html.BeginForm("EditStudentDetails", "HighSchoolStudents", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
@@ -45,4 +45,5 @@
 @Html.Partial("_Modal", Model)
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/main.js")
 }
