@@ -3,9 +3,9 @@ using DataAccess;
 
 namespace BusinessLayer
 {
-    public class RolesService : StudentsService<Roles>
+    public class RolesService : StudentsService<Role>
     {
-        public RolesService(IStudentsRepository<Roles> service) : base(service)
+        public RolesService(IStudentsRepository<Role> service) : base(service)
         {
 
         }

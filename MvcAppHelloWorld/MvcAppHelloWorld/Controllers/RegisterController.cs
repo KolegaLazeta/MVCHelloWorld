@@ -19,11 +19,11 @@ namespace MvcAppHelloWorld.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Index(Users user)
+        public ActionResult Index(User user)
         {
             using (var db = new TuxContext())
             {
-                db.Users.Add(user);
+                db.User.Add(user);
                 db.SaveChanges();
                 ModelState.Clear();
             }

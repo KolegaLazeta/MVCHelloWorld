@@ -7,7 +7,7 @@ using BusinessObjectModel;
 
 namespace DataAccess
 {
-    public class RolesRepository : StudentsRepository<Roles>
+    public class RolesRepository : StudentsRepository<Role>
     {
        
     }

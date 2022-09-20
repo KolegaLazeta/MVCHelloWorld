@@ -17,11 +17,11 @@ namespace MvcAppHelloWorld
             // it is NOT necessary to register your controllers
             container.RegisterType<IStudentsRepository<HighSchool>, HighSchoolRepository>();
             container.RegisterType<IStudentsRepository<College>, CollegeRepository>();
-            container.RegisterType<IStudentsRepository<Roles>, RolesRepository>();
+            container.RegisterType<IStudentsRepository<Role>, RolesRepository>();
 
             container.RegisterType<IStudentsService<HighSchool>, HighSchoolService>();
             container.RegisterType<IStudentsService<College>, CollegeService>();
-            container.RegisterType<IStudentsService<Roles>, RolesService>();
+            container.RegisterType<IStudentsService<Role>, RolesService>();
 
 
             // e.g. container.RegisterType<ITestService, TestService>();

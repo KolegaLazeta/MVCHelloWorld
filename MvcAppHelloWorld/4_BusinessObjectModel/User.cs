@@ -6,8 +6,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace BusinessObjectModel
 {
 
-    [Table("Users")]
-    public class Users
+    [Table("User")]
+    public class User
         // Base Class
     {
         [Key]
@@ -23,11 +23,11 @@ namespace BusinessObjectModel
         public string Phone_Number { get; set; }
         public string House_Address { get; set; }
 
-        public List<Roles> Roles { get; set; }
+        public List<Role> Roles { get; set; }
 
-        public Users()
+        public User()
         {
-            var roles = new Roles();
+            var roles = new Role();
             roles.RoleId = 1;
             roles.Name = "HighSchool";
             
