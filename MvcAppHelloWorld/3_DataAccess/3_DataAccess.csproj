@@ -134,6 +134,7 @@
   <ItemGroup>
     <Compile Include="College\CollegeRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Roles\RolesRepository.cs" />
     <Compile Include="Students\IStudentsRepository.cs" />
     <Compile Include="Students\StudentsRepository.cs" />
     <Compile Include="HighSchool\HighSchoolRepository.cs" />

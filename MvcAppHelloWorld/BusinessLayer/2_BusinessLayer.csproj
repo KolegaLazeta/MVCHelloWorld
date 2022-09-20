@@ -135,6 +135,7 @@
     <Compile Include="College\CollegeService.cs" />
     <Compile Include="HighSchool\HighSchoolService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Roles\RolesService.cs" />
     <Compile Include="Students\IStudentsService.cs" />
     <Compile Include="Students\StudentsService.cs" />
   </ItemGroup>
