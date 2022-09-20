@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace DataAccess
 {
-    public class StudentsRepository<T> : TuxContext, IStudentsRepository<T> where T : class
+    public class GenericRepository<T> : TuxContext, IGenericRepository<T> where T : class
     {
         private TuxContext _context = null;
         private DbSet<T> table = null;
 
-        public StudentsRepository()
+        public GenericRepository()
         {
             this._context = new TuxContext();
             table = _context.Set<T>();
@@ -20,21 +20,21 @@ namespace DataAccess
             _context.SaveChanges();
         }
 
-        public void CreateNewStudent(T student)
+        public void Create(T obj)
         {
-            table.Add(student);
+            table.Add(obj);
         }
 
-        public void DeleteStudent(int id)
+        public void Delete(int id)
         {
             T existing = table.Find(id);
             table.Remove(existing);
         }
 
-        public void EditStudentDetails(T student)
+        public void EditDetails(T obj)
         {
-            table.Attach(student);
-            _context.Entry(student).State = EntityState.Modified;
+            table.Attach(obj);
+            _context.Entry(obj).State = EntityState.Modified;
         }
 
         public T GetByID(int id)
@@ -42,7 +42,7 @@ namespace DataAccess
             return table.Find(id);
         }
 
-        public List<T> GetStudentList()
+        public List<T> GetList()
         {
             return table.ToList();
         }

@@ -6,7 +6,7 @@ using BusinessObjectModel;
 
 namespace DataAccess
 {
-    public class CollegeRepository : StudentsRepository<College>
+    public class CollegeRepository : GenericRepository<College>
     {
         public override IEnumerable<College> Search(string searchString)
         {

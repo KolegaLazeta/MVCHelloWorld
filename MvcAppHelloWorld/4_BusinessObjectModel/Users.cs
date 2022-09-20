@@ -7,7 +7,7 @@ namespace BusinessObjectModel
 {
 
     [Table("User")]
-    public class User
+    public class Users
         // Base Class
     {
         [Key]
@@ -23,15 +23,9 @@ namespace BusinessObjectModel
         public string Phone_Number { get; set; }
         public string House_Address { get; set; }
 
-        public List<Role> Roles { get; set; }
+        public List<Role> Role { get; set; }
 
-        public User()
-        {
-            var roles = new Role();
-            roles.RoleId = 1;
-            roles.Name = "HighSchool";
-            
-        }
+        
 
         
     }

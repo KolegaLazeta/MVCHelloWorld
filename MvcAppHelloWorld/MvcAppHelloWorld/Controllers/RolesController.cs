@@ -3,9 +3,9 @@ using BusinessObjectModel;
 
 namespace Controllers
 {
-    public class RolesController : StudentsController<Role>
+    public class RolesController : GenericController<Role>
     {
-        public RolesController(IStudentsService<Role> service) : base(service)
+        public RolesController(IGenericService<Role> service) : base(service)
         {
 
         }

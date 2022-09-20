@@ -2,15 +2,15 @@
 
 namespace BusinessLayer
 {
-    public interface IStudentsService<T>
+    public interface IGenericService<T>
     {
-        List<T> GetStudentList();
+        List<T> GetList();
         IEnumerable<T> Search(string searchString);
         void Export(int id);
         T GetByID(int id);
-        void EditStudentDetails(T student);
-        void CreateNewStudent(T student);
-        void DeleteStudent(int id);
+        void EditDetails(T obj);
+        void Create(T obj);
+        void Delete(int id);
         void Save();
     }
 }

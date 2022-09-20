@@ -3,10 +3,10 @@ using BusinessLayer;
 
 namespace Controllers
 {
-    public class HighSchoolStudentsController : StudentsController<HighSchool>
+    public class HighSchoolStudentsController : GenericController<HighSchool>
     {
 
-        public HighSchoolStudentsController(IStudentsService<HighSchool> studentsService) : base(studentsService)
+        public HighSchoolStudentsController(IGenericService<HighSchool> studentsService) : base(studentsService)
         {
 
         }

@@ -3,9 +3,9 @@ using BusinessObjectModel;
 
 namespace BusinessLayer
 {
-    public class CollegeService : StudentsService<College>
+    public class CollegeService : GenericService<College>
     {
-        public CollegeService(IStudentsRepository<College> studentsRepository) : base(studentsRepository)
+        public CollegeService(IGenericRepository<College> studentsRepository) : base(studentsRepository)
         {
 
         }

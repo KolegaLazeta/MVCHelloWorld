@@ -6,7 +6,7 @@ using System.IO;
 
 namespace DataAccess
 {
-    public class HighSchoolRepository : StudentsRepository<HighSchool>
+    public class HighSchoolRepository : GenericRepository<HighSchool>
     {
         public override IEnumerable<HighSchool> Search(string searchString)
         {

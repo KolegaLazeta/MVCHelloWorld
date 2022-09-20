@@ -8,12 +8,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BusinessObjectModel
 {
+    [Table("Role")]
     public class Role
     {
         [Key]
-        public int RoleId { get; set; }
+        public Guid RoleId { get; set; }
         public string Name { get; set; }
-        public ICollection<User> Users { get; set; }
+        public List<Users> Users { get; set; }
 
         
     }

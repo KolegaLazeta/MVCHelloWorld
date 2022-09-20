@@ -3,18 +3,18 @@ using System.Web.Mvc;
 
 namespace Controllers
 {
-    public class StudentsController<T> : Controller where T : class {
+    public class GenericController<T> : Controller where T : class {
 
-        private IStudentsService<T> _studentsService;
+        private IGenericService<T> _service;
 
-        public StudentsController(IStudentsService<T> studentsService)
+        public GenericController(IGenericService<T> service)
         {
-            _studentsService = studentsService;
+            _service = service;
         }
 
         public ActionResult Index()
         {
-            var studentList = _studentsService.GetStudentList();
+            var studentList = _service.GetList();
             return View("Index", studentList);
         }
 
@@ -22,7 +22,7 @@ namespace Controllers
         {
             ViewBag.readOnly = false;
             ViewBag.disabled = "";
-            var student = _studentsService.GetByID(id);
+            var student = _service.GetByID(id);
             return View("Details", student);
         }
 
@@ -30,14 +30,14 @@ namespace Controllers
         {
             ViewBag.readOnly = true;
             ViewBag.disabled = "disabled";
-            var student = _studentsService.GetByID(id);
+            var student = _service.GetByID(id);
             return View("Details", student);
         }
 
         public ActionResult EditStudentDetails(T obj)
         {
-            _studentsService.EditStudentDetails(obj);
-            _studentsService.Save();
+            _service.EditDetails(obj);
+            _service.Save();
             return View("Details", obj);
         }
 
@@ -49,8 +49,8 @@ namespace Controllers
         [HttpPost]
         public ActionResult CreateStudent (T obj)
         {
-            _studentsService.CreateNewStudent(obj);
-            _studentsService.Save();
+            _service.Create(obj);
+            _service.Save();
             return View("Details", obj);
         }
 
@@ -58,8 +58,8 @@ namespace Controllers
         {
             try
             {
-                _studentsService.DeleteStudent(id);
-                _studentsService.Save();
+                _service.Delete(id);
+                _service.Save();
                 return RedirectToAction("");
             }
             catch
@@ -70,13 +70,13 @@ namespace Controllers
 
         public ActionResult Search(string searchString)
         {
-           var students = _studentsService.Search(searchString);
+           var students = _service.Search(searchString);
             return View("Index", students);
         }
 
         public ActionResult Export(int id)
         {
-            _studentsService.Export(id);
+            _service.Export(id);
             return RedirectToAction("Index"); //spravit nak vodi na akciju keru spravim za textdownloadnotification
         }
 
