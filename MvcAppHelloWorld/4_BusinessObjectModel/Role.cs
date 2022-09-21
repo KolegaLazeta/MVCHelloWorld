@@ -12,7 +12,8 @@ namespace BusinessObjectModel
     public class Role
     {
         [Key]
-        public Guid RoleId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int RoleId { get; set; }
         public string Name { get; set; }
         public List<Users> Users { get; set; }
 

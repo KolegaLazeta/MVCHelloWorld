@@ -11,8 +11,8 @@ namespace BusinessObjectModel
         // Base Class
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public Guid UserId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int UserId { get; set; }
         public string Name { get; set; }
         public string Lastname { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]

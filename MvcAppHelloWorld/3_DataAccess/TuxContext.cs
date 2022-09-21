@@ -16,12 +16,14 @@ namespace DataAccess
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         { 
 
-
+            
             //modelBuilder.Entity<HighSchool>()
             //    .Map<HighSchool>(m => m.Requires("RoleId").HasValue(1));
             //modelBuilder.Entity<College>()
             //    .Map<College>(m => m.Requires("RoleId").HasValue(2));
 
+
+            // Many to many relationship
             modelBuilder.Entity<Users>()
                 .HasMany<Role>(s => s.Role)
                 .WithMany(c => c.Users)
