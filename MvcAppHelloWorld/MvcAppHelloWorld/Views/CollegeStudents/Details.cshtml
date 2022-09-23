@@ -3,13 +3,13 @@
     ViewBag.Title = "College Student Details";
 }
 <h2>Edit College Students</h2>
-@using (Html.BeginForm("EditStudentDetails", "CollegeStudents", FormMethod.Post))
+@using (Html.BeginForm("EditDetails", "CollegeStudents", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
         <br />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.UserId)
         @Html.Partial("_Edit", Model)
         <div class="form-group">
             @Html.LabelFor(model => model.College_Name, htmlAttributes: new { @class = "control-label col-md-4" })
@@ -33,9 +33,9 @@
     </div>
 }
 <div>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-primary btn-sm" })
+    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }, new { @class = "btn btn-primary btn-sm" })
     @Html.ActionLink("Back to List", "Index", "College", new { @class = "btn btn-primary btn-sm" })
-    @Html.ActionLink("Download Details", "Export", new { id = Model.ID }, new { @class = "btn btn-primary btn-sm" })
+    @Html.ActionLink("Download Details", "Export", new { id = Model.UserId }, new { @class = "btn btn-primary btn-sm" })
     <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
         Delete
     </button>

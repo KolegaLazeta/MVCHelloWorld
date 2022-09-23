@@ -34,7 +34,7 @@ namespace Controllers
             return View("Details", student);
         }
 
-        public ActionResult EditStudentDetails(T obj)
+        public ActionResult EditDetails(T obj)
         {
             _service.EditDetails(obj);
             _service.Save();
@@ -47,7 +47,7 @@ namespace Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateStudent (T obj)
+        public ActionResult Save (T obj)
         {
             _service.Create(obj);
             _service.Save();

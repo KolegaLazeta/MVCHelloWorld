@@ -16,7 +16,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ID)
+            @Html.DisplayNameFor(model => model.UserId)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -47,7 +47,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ID)
+                @Html.DisplayFor(modelItem => item.UserId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -74,9 +74,9 @@
                 @Html.DisplayFor(modelItem => item.Enrollment_date)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "btn btn-primary btn-sm" })
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-primary btn-sm" })
-                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">Delete</button>
+                @Html.ActionLink("Edit", "Edit", new { id = item.UserId }, new { @class = "btn btn-primary btn-sm" })
+                @Html.ActionLink("Details", "Details", new { id = item.UserId }, new { @class = "btn btn-info btn-sm" })
+                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal">Delete</button>
             </td>
         </tr>
         @Html.Partial("_Modal", Model)

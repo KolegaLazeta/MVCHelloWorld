@@ -23,7 +23,7 @@ namespace MvcAppHelloWorld.Controllers
         {
             using (var db = new TuxContext())
             {
-                db.User.Add(user);
+                db.Users.Add(user);
                 db.SaveChanges();
                 ModelState.Clear();
             }

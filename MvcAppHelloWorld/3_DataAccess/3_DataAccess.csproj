@@ -133,12 +133,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="College\CollegeRepository.cs" />
+    <Compile Include="Professor\ProfesssorRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Roles\RolesRepository.cs" />
     <Compile Include="Generic\IGenericRepository.cs" />
     <Compile Include="Generic\GenericRepository.cs" />
     <Compile Include="HighSchool\HighSchoolRepository.cs" />
     <Compile Include="TuxContext.cs" />
+    <Compile Include="User\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

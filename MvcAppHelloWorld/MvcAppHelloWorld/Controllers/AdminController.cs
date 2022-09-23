@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace MvcAppHelloWorld.Controllers
 {
-    public class LoginController : Controller
+    public class AdminController : Controller
     {
-        // GET: Login
+        // GET: Admin
         public ActionResult Index()
         {
             return View();

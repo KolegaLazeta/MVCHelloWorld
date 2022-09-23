@@ -10,11 +10,13 @@ namespace BusinessObjectModel
 {
     public class UserRole
     {
-        [ForeignKey("UserId")]
-        public ICollection<Users> Users { get; set; }
         public int UserId { get; set; }
-        [ForeignKey("RoleId")]
-        public ICollection<Role> Roles { get; set; }
+        [ForeignKey("UserId")]
+        public Users Users { get; set; }
+
+
         public int RoleId { get; set; }
+        [ForeignKey("RoleId")]
+        public Role Role { get; set; }
     }
 }

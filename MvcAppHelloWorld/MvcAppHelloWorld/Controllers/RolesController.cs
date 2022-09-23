@@ -7,8 +7,6 @@ namespace Controllers
     {
         public RolesController(IGenericService<Role> service) : base(service)
         {
-
         }
-
     }
 }

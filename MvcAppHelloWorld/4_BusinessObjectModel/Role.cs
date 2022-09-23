@@ -8,7 +8,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BusinessObjectModel
 {
-    [Table("Role")]
     public class Role
     {
         [Key]
@@ -16,7 +15,6 @@ namespace BusinessObjectModel
         public int RoleId { get; set; }
         public string Name { get; set; }
         public List<Users> Users { get; set; }
-
-        
+        public List<UserRole> UserRole { get; set; }
     }
 }

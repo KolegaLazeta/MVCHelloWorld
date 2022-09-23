@@ -15,10 +15,16 @@ namespace DataAccess
             table = _context.Set<T>();
         }
 
-        public void Save()
+        public virtual List<T> GetList()
         {
-            _context.SaveChanges();
+            
+            return table.ToList();
         }
+        public T GetByID(int id)
+        {
+            return table.Find(id);
+        }
+
 
         public void Create(T obj)
         {
@@ -37,15 +43,6 @@ namespace DataAccess
             _context.Entry(obj).State = EntityState.Modified;
         }
 
-        public T GetByID(int id)
-        {
-            return table.Find(id);
-        }
-
-        public List<T> GetList()
-        {
-            return table.ToList();
-        }
 
         public virtual IEnumerable<T> Search(string searchString)
         {
@@ -56,6 +53,10 @@ namespace DataAccess
         {
             
         }
-       
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
+
     }
 }
