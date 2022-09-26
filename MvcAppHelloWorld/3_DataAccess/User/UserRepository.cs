@@ -1,9 +1,7 @@
-﻿using System;
+﻿using BusinessObjectModel;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BusinessObjectModel;
 
 namespace DataAccess
 {
@@ -13,12 +11,10 @@ namespace DataAccess
         {
             using (var db = new TuxContext())
             {
-                List<Users> users = db.Users.Include("UserRole").ToList();
-
-
+                List<Users> users = db.Users.Include(u => u.UserRole).ToList();
                 foreach (var user in users)
                 {
-                    user.UserRole = db.UserRole.Include("Role").Where(ur => ur.UserId == user.UserId).ToList();
+                    user.UserRole = db.UserRole.Include(ur => ur.Role).Where(ur => ur.UserId == user.UserId).ToList();
                 }
                 return users;
             }

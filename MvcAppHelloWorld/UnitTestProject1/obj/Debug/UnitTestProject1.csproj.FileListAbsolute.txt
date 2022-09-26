@@ -86,3 +86,7 @@ D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\UnitTestProject1\obj\Debug\UnitTes
 D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\UnitTestProject1\obj\Debug\UnitTestProject1.csproj.CopyComplete
 D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\UnitTestProject1\obj\Debug\UnitTestProject1.dll
 D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\UnitTestProject1\obj\Debug\UnitTestProject1.pdb
+D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\UnitTestProject1\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\UnitTestProject1\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\UnitTestProject1\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\UnitTestProject1\bin\Debug\Microsoft.AspNet.Identity.Core.xml

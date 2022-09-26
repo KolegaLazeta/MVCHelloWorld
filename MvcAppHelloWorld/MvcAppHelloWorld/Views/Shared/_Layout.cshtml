@@ -9,8 +9,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    @*@if (User.Identity.IsAuthenticated)
-    {*@
+   
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -23,18 +22,41 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @*Text      Action    Controller*@
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
-                    <li>@Html.ActionLink("User", "Index", "User")</li>
 
-                    <li>@Html.ActionLink("High School Students", "Index", "HighSchoolStudents")</li>
-                    <li>@Html.ActionLink("College Students", "Index", "CollegeStudents")</li>
-                    <li>@Html.ActionLink("Professors", "Index", "Professor")</li>
-                    <li>@Html.ActionLink("Login", "Index", "Login")</li>
-                    <li>@Html.ActionLink("Register", "Index", "Register")</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                      
+                        if (User.IsInRole("Professor"))
+                        {
+                            <li>@Html.ActionLink("User", "Index", "User")</li>
+                            <li>@Html.ActionLink("College Students", "Index", "CollegeStudentsCollegeStudents")</li>
+                            <li>@Html.ActionLink("High School Students", "Index", "HighSchoolStudents")</li>
+                        }
+                        if (User.IsInRole("College"))
+                        {
+                            <li>@Html.ActionLink("User", "Index", "User")</li>
+                            <li><a href="@Url.Action("Index","Professor")">Professors</a></li>
+                        }
+                        if (User.IsInRole("HighSchool"))
+                        {
+                            <li>@Html.ActionLink("User", "Index", "User")</li>
+                            <li><a href="@Url.Action("Index","Professor")">Professors</a></li>
+                        }
+
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
+                    }
+
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Login", "Index", "Login")</li>
+                        <li>@Html.ActionLink("Register", "Index", "Register")</li>
+                    }
+
+
+
                 </ul>
             </div>
         </div>

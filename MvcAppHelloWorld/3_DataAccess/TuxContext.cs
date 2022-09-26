@@ -1,4 +1,5 @@
 ﻿using BusinessObjectModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 
 namespace DataAccess
@@ -21,7 +22,7 @@ namespace DataAccess
         {
 
             modelBuilder.Entity<Users>().ToTable("Users");
-            modelBuilder.Entity<Role>().ToTable("Roles");
+            modelBuilder.Entity<Role>().ToTable("Role");
             modelBuilder.Entity<UserRole>().ToTable("UserRole");
 
 
@@ -37,23 +38,22 @@ namespace DataAccess
             modelBuilder.Entity<Admin>()
                 .Map<Admin>(m => m.Requires("TypeOfUser").HasValue("Admin"));
 
-
-
-            //// Many to many relationship
-            //modelBuilder.Entity<Users>()
-            //    .HasMany<Role>(s => s.Role)
-            //    .WithMany(c => c.Users)
-            //    .Map(cs =>
-            //    {
-            //        cs.MapLeftKey("UserRefId");
-            //        cs.MapRightKey("RoleRefId");
-            //        cs.ToTable("UserRole");
-            //    });
-
             modelBuilder.Entity<UserRole>()
                 .HasKey(c => new { c.UserId, c.RoleId });
 
+            modelBuilder.Entity<Users>()
+                .HasKey(u => u.UserId);
+            
+            modelBuilder.Entity<Role>()
+                .HasKey(u => u.RoleId);
 
+            modelBuilder.Entity<Users>()
+                .Property(u => u.UserId)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+            modelBuilder.Entity<Role>()
+                .Property(u => u.RoleId)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             modelBuilder.Entity<Users>()
                  .HasMany(c => c.UserRole)
@@ -67,9 +67,16 @@ namespace DataAccess
 
             Database.SetInitializer<TuxContext>(null);
 
+            //// Many to many relationship
+            //modelBuilder.Entity<Users>()
+            //    .HasMany<Role>(s => s.Role)
+            //    .WithMany(c => c.Users)
+            //    .Map(cs =>
+            //    {
+            //        cs.MapLeftKey("UserRefId");
+            //        cs.MapRightKey("RoleRefId");
+            //        cs.ToTable("UserRole");
+            //    });
         }
-
-
-
     }
 }

@@ -57,3 +57,7 @@ D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\4_BusinessObjectModel\obj\Debug\4_
 D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\4_BusinessObjectModel\obj\Debug\4_BusinessObjectModel.dll
 D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\4_BusinessObjectModel\obj\Debug\4_BusinessObjectModel.pdb
 D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\4_BusinessObjectModel\obj\Debug\4_BusinessObjectModel.csproj.AssemblyReference.cache
+D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\4_BusinessObjectModel\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\4_BusinessObjectModel\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\4_BusinessObjectModel\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\4_BusinessObjectModel\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
