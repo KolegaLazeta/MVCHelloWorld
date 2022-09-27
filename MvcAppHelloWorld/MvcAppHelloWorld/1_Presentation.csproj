@@ -267,8 +267,10 @@
     <Content Include="Views\User\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ApplicationServices\" />
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="ViewModel\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

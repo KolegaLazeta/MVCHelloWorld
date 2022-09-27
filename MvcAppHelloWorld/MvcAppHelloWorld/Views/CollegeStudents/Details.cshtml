@@ -3,8 +3,11 @@
     ViewBag.Title = "College Student Details";
 }
 <h2>Edit College Students</h2>
-@using (Html.BeginForm("EditDetails", "CollegeStudents", FormMethod.Post))
+
+@if (User.IsInRole("Professor"))
 {
+    using (Html.BeginForm("EditDetails", "CollegeStudents", FormMethod.Post))
+    {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
         <br />
@@ -31,17 +34,18 @@
             </div>
         </div>
     </div>
-}
-<div>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }, new { @class = "btn btn-primary btn-sm" })
-    @Html.ActionLink("Back to List", "Index", "College", new { @class = "btn btn-primary btn-sm" })
-    @Html.ActionLink("Download Details", "Export", new { id = Model.UserId }, new { @class = "btn btn-primary btn-sm" })
-    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
-        Delete
-    </button>
-</div>
-<!-- Modal -->
-@Html.Partial("_Modal", Model)
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    }
+    <div>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }, new { @class = "btn btn-primary btn-sm" })
+        @Html.ActionLink("Back to List", "Index", "College", new { @class = "btn btn-primary btn-sm" })
+        @Html.ActionLink("Download Details", "Export", new { id = Model.UserId }, new { @class = "btn btn-primary btn-sm" })
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+            Delete
+        </button>
+    </div>
+    <!-- Modal -->
+    @Html.Partial("_Modal", Model)
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
 }

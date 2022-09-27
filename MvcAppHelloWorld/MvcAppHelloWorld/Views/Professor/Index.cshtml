@@ -8,10 +8,22 @@
 }
 
 <h2>View</h2>
+@if(User.IsInRole("Admin"))
+            {
 
-<p>
-        @Html.ActionLink("Create New", "Create")
-</p>
+    <p>
+            @Html.ActionLink("Add Professor", "Create")
+    </p>
+            }
+<div class="col-md-3">
+    @using (Html.BeginForm("Search", "Professor", FormMethod.Get))
+    {
+        <p>
+            @Html.TextBox("SearchString")
+            <input type="submit" value="Search" class="btn btn-primary btn-sm">
+        </p>
+    }
+</div>
 <table class="table">
 
 
@@ -22,18 +34,15 @@
         <th>
             @Html.DisplayNameFor(model => model.Lastname)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Birthday_date)
-        </th>
+     
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Phone_Number)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.House_Address)
-        </th>
+       
+     
         <th>
             @Html.DisplayNameFor(model => model.ClassSubject)
         </th>
@@ -52,19 +61,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Lastname)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Birthday_date)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
+            
 
             <td>
                 @Html.DisplayFor(modelItem => item.Phone_Number)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.House_Address)
-            </td>
+        
             <td>
                 @Html.DisplayFor(modelItem => item.ClassSubject)
             </td>
@@ -72,10 +78,13 @@
                 @Html.DisplayFor(modelItem => item.Cabinet)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.UserId }, new { @class = "btn btn-primary btn-sm" }) 
                 @Html.ActionLink("Details", "Details", new { id = item.UserId }, new { @class = "btn btn-info btn-sm" }) 
-                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal">Delete</button>
-
+                @if(User.IsInRole("Admin"))
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.UserId }, new { @class = "btn btn-primary btn-sm" }) 
+                        @Html.ActionLink("Delete", "Delete", new { id = item.UserId }, new { @class = "btn btn-danger btn-sm" }) 
+                        
+                    }
             </td>
 
         </tr>

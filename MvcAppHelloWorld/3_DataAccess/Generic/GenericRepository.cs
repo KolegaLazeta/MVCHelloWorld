@@ -28,6 +28,7 @@ namespace DataAccess
 
         public void Create(T obj)
         {
+
             table.Add(obj);
         }
 

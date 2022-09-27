@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace Controllers
 {
-    [Authorize(Roles = "Professor, Admin")]
+    [Authorize(Roles = "Admin,Professor")]
     public class ProfessorController : GenericController<Professor>
     {
         public ProfessorController(GenericService<Professor> service) : base(service)

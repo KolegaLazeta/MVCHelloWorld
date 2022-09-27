@@ -37,19 +37,22 @@ namespace Infrastructure
             throw new NotImplementedException();
         }
 
-        public override string[] GetRolesForUser(string username)
+        public override string[] GetRolesForUser(string email)
         {
+            List<string> roleNames = new List<string>();
             using (var db = new TuxContext())
             {
-                var user = db.Users.SingleOrDefault(u => u.Email == username); // looking for user with this email
-                var userRoles = db.Role.Select(r => r.Name); // joining Role entitet using Name property
-
-                if (user == null)
-                    return new string[] { }; //return blank string
-                return user.Role == null ? new string[] { } : 
-                    userRoles.ToArray(); // else, create array of users with roles
-
+                var user = db.Users.FirstOrDefault(u => u.Email == email);
+                user.UserRole = db.UserRole.Include("Role").Where(ur => ur.UserId == user.UserId).ToList();
+                if (user.UserRole != null)
+                {
+                    foreach (var ur in user.UserRole)
+                    {
+                        roleNames.Add(ur.Role.Name);
+                    }
+                }
             }
+            return roleNames.ToArray();
         }
 
 
@@ -68,7 +71,7 @@ namespace Infrastructure
 
                 if (user == null)
                     return false;
-                return user.Role != null && userRoles.Any(r => r == roleName); // else, 
+                return user.Role != null && userRoles.Any(r => r == roleName);
             }
         }
 

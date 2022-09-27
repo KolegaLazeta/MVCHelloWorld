@@ -5,21 +5,26 @@
 }
 <h2>High School Students</h2>
 <p>
-
-    @Html.ActionLink("Create New High School Student", "Create")
-
-    @using (Html.BeginForm("Search", "HighSchool", FormMethod.Get))
+    @if (User.IsInRole("Professor"))
     {
-    <p>
-        @Html.TextBox("SearchString")
-        <input type="submit" value="Search" />
-    </p>
+        @Html.ActionLink("Create New High School Student", "Create")
+    }
+
+        @using (Html.BeginForm("Search", "HighSchool", FormMethod.Get))
+        {
+    <div class="col-md-3">
+        @using (Html.BeginForm("Search", "HighSchoolStudents", FormMethod.Get))
+        {
+            <p>
+                @Html.TextBox("SearchString")
+                <input type="submit" value="Search" class="btn btn-primary btn-sm">
+            </p>
+        }
+    </div>
 }
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserId)
-        </th>
+       
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
@@ -47,40 +52,43 @@
     </tr>
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lastname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Birthday_date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone_Number)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.House_Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.School_Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Enrollment_date)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.UserId }, new { @class = "btn btn-primary btn-sm" })
-                @Html.ActionLink("Details", "Details", new { id = item.UserId }, new { @class = "btn btn-info btn-sm" })
-                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal">Delete</button>
-            </td>
-        </tr>
+<tr>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Lastname)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Birthday_date)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Email)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Phone_Number)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.House_Address)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.School_Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Enrollment_date)
+    </td>
+
+    @if (User.IsInRole("Professor"))
+    {
+<td>
+    @Html.ActionLink("Details", "Details", new { id = item.UserId }, new { @class = "btn btn-info btn-sm" })
+    @Html.ActionLink("Edit", "Edit", new { id = item.UserId }, new { @class = "btn btn-primary btn-sm" })
+    @Html.ActionLink("Delete", "Delete", new { id = item.UserId }, new { @class = "btn btn-danger btn-sm" })
+
+</td>
+    }
+</tr>
         @Html.Partial("_Modal", Model)
     }
 </table>

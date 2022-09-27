@@ -65,6 +65,9 @@ namespace DataAccess
                  .WithRequired()
                  .HasForeignKey(c => c.RoleId);
 
+          
+                
+
             Database.SetInitializer<TuxContext>(null);
 
             //// Many to many relationship

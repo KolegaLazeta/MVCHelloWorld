@@ -25,22 +25,31 @@
 
                     @if (User.Identity.IsAuthenticated)
                     {
-                      
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("Admin area", "Index", "Admin")</li>
+                            <li>@Html.ActionLink("College Students", "Index", "CollegeStudents")</li>
+                            <li>@Html.ActionLink("High School Students", "Index", "HighSchoolStudents")</li>
+                            <li>@Html.ActionLink("Roles", "Index", "Roles")</li>
+                            <li><a href="@Url.Action("Index","Professor")">Professors</a></li>
+
+                        }
+
                         if (User.IsInRole("Professor"))
                         {
                             <li>@Html.ActionLink("User", "Index", "User")</li>
-                            <li>@Html.ActionLink("College Students", "Index", "CollegeStudentsCollegeStudents")</li>
+                            <li>@Html.ActionLink("College Students", "Index", "CollegeStudents")</li>
                             <li>@Html.ActionLink("High School Students", "Index", "HighSchoolStudents")</li>
                         }
                         if (User.IsInRole("College"))
                         {
                             <li>@Html.ActionLink("User", "Index", "User")</li>
-                            <li><a href="@Url.Action("Index","Professor")">Professors</a></li>
+                            <li>@Html.ActionLink("College Students", "Index", "CollegeStudents")</li>
                         }
                         if (User.IsInRole("HighSchool"))
                         {
                             <li>@Html.ActionLink("User", "Index", "User")</li>
-                            <li><a href="@Url.Action("Index","Professor")">Professors</a></li>
+                            <li>@Html.ActionLink("High School Students", "Index", "HighSchoolStudents")</li>
                         }
 
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>

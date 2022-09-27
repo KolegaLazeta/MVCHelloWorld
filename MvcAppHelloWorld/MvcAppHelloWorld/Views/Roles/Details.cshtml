@@ -22,6 +22,7 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.RoleId }) |
+    <a href="@Url.Action("Edit","Roles")">Edit</a> |
+
     @Html.ActionLink("Back to List", "Index")
 </p>
