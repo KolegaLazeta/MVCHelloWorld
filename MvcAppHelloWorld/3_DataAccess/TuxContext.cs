@@ -16,6 +16,7 @@ namespace DataAccess
 
         public TuxContext() : base("name=TuxDatabase")
         {
+
             Configuration.LazyLoadingEnabled = true;
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
