@@ -47,7 +47,7 @@ namespace Controllers
         }
 
         [HttpPost]
-        public ActionResult Save (T obj)
+        public virtual ActionResult Save (T obj)
         {
             _service.Create(obj);
             _service.Save();

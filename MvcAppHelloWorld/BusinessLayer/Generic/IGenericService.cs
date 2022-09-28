@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using BusinessObjectModel;
+using System.Collections.Generic;
 
 namespace BusinessLayer
 {

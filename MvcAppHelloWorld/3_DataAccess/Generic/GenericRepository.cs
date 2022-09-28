@@ -25,14 +25,12 @@ namespace DataAccess
             return table.Find(id);
         }
 
-
-        public void Create(T obj)
+        public virtual void Create(T obj)
         {
-
             table.Add(obj);
         }
 
-        public void Delete(int id)
+        public virtual void Delete(int id)
         {
             T existing = table.Find(id);
             table.Remove(existing);

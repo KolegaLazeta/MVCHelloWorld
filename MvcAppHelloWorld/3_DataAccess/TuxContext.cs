@@ -58,15 +58,17 @@ namespace DataAccess
             modelBuilder.Entity<Users>()
                  .HasMany(c => c.UserRole)
                  .WithRequired()
-                 .HasForeignKey(c => c.UserId);
+                 .HasForeignKey(c => c.UserId)
+                 .WillCascadeOnDelete(true); ;
 
             modelBuilder.Entity<Role>()
                  .HasMany(c => c.UserRole)
                  .WithRequired()
-                 .HasForeignKey(c => c.RoleId);
+                 .HasForeignKey(c => c.RoleId)
+                 .WillCascadeOnDelete(true);
 
-          
-                
+
+
 
             Database.SetInitializer<TuxContext>(null);
 

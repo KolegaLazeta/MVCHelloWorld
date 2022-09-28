@@ -8,6 +8,12 @@ namespace DataAccess
 {
     public class CollegeRepository : GenericRepository<College>
     {
+        private TuxContext db = null;
+        public CollegeRepository()
+        {
+            this.db = new TuxContext();
+
+        }
         public override IEnumerable<College> Search(string searchString)
         {
             using (var db = new TuxContext())
@@ -72,6 +78,22 @@ namespace DataAccess
                     }
                 }
             }
+        }
+        public override void Create(College college)
+        {
+            db.Users.Add(college);
+            db.UserRole.AddRange(college.UserRole);
+            db.SaveChanges();
+        }
+        public override void Delete(int id)
+        {
+            var userRole = db.UserRole.Where(ur => ur.UserId == id);
+            db.UserRole.RemoveRange(userRole);
+            db.Users.Remove(GetByID(id));
+        }
+        public override List<College> GetList()
+        {
+            return db.College.Include("UserRole").ToList();
         }
     }
 }
