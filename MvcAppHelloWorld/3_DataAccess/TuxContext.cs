@@ -1,5 +1,6 @@
-﻿using System.Data.Entity;
-using BusinessObjectModel;
+﻿using BusinessObjectModel;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 
 namespace DataAccess
 {
@@ -7,23 +8,80 @@ namespace DataAccess
     {
         public DbSet<College> College { get; set; }
         public DbSet<HighSchool> HighSchool { get; set; }
-        public DbSet<Students> Students { get; set; }
-        public TuxContext() : base("name=TuxDatabase") 
+        public DbSet<Professor> Professor { get; set; }
+        public DbSet<Users> Users { get; set; }
+        public DbSet<Role> Role { get; set; }
+        public DbSet<UserRole> UserRole { get; set; }
+        public DbSet<Admin> Admin { get; set; }
+
+        public TuxContext() : base("name=TuxDatabase")
         {
             Configuration.LazyLoadingEnabled = true;
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Students>().ToTable("Students");
+
+            modelBuilder.Entity<Users>().ToTable("Users");
+            modelBuilder.Entity<Role>().ToTable("Role");
+            modelBuilder.Entity<UserRole>().ToTable("UserRole");
+
+
+            modelBuilder.Entity<Professor>()
+                .Map<Professor>(m => m.Requires("TypeOfUser").HasValue("Professor"));
 
             modelBuilder.Entity<HighSchool>()
-
-                .Map<HighSchool>(m => m.Requires("Type_of_Student").HasValue(1));
+                .Map<HighSchool>(m => m.Requires("TypeOfUser").HasValue("HighSchool"));
 
             modelBuilder.Entity<College>()
+                .Map<College>(m => m.Requires("TypeOfUser").HasValue("College"));
 
-                .Map<College>(m => m.Requires("Type_of_Student").HasValue(2));
+            modelBuilder.Entity<Admin>()
+                .Map<Admin>(m => m.Requires("TypeOfUser").HasValue("Admin"));
 
+            modelBuilder.Entity<UserRole>()
+                .HasKey(c => new { c.UserId, c.RoleId });
+
+            modelBuilder.Entity<Users>()
+                .HasKey(u => u.UserId);
+            
+            modelBuilder.Entity<Role>()
+                .HasKey(u => u.RoleId);
+
+            modelBuilder.Entity<Users>()
+                .Property(u => u.UserId)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+            modelBuilder.Entity<Role>()
+                .Property(u => u.RoleId)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+            modelBuilder.Entity<Users>()
+                 .HasMany(c => c.UserRole)
+                 .WithRequired()
+                 .HasForeignKey(c => c.UserId)
+                 .WillCascadeOnDelete(true); ;
+
+            modelBuilder.Entity<Role>()
+                 .HasMany(c => c.UserRole)
+                 .WithRequired()
+                 .HasForeignKey(c => c.RoleId)
+                 .WillCascadeOnDelete(true);
+
+
+
+
+            Database.SetInitializer<TuxContext>(null);
+
+            //// Many to many relationship
+            //modelBuilder.Entity<Users>()
+            //    .HasMany<Role>(s => s.Role)
+            //    .WithMany(c => c.Users)
+            //    .Map(cs =>
+            //    {
+            //        cs.MapLeftKey("UserRefId");
+            //        cs.MapRightKey("RoleRefId");
+            //        cs.ToTable("UserRole");
+            //    });
         }
     }
 }

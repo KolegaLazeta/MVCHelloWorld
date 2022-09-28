@@ -502,3 +502,10 @@ D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\MvcAppHelloWorld\obj\Debug\1_Prese
 D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\MvcAppHelloWorld\obj\Debug\1_Presentation.csproj.CopyComplete
 D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\MvcAppHelloWorld\obj\Debug\MvcAppHelloWorld.dll
 D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\MvcAppHelloWorld\obj\Debug\MvcAppHelloWorld.pdb
+D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\MvcAppHelloWorld\bin\Microsoft.AspNet.Identity.Core.dll
+D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\MvcAppHelloWorld\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\MvcAppHelloWorld\bin\Microsoft.AspNet.Identity.Core.xml
+D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\MvcAppHelloWorld\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\MvcAppHelloWorld\bin\Infrastructure.dll
+D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\MvcAppHelloWorld\bin\Infrastructure.pdb
+D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\MvcAppHelloWorld\bin\Infrastructure.dll.config

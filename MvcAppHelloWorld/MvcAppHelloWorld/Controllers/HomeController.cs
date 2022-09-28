@@ -1,10 +1,17 @@
-﻿using System.Web.Mvc;
-
+﻿using BusinessLayer;
+using BusinessObjectModel;
+using DataAccess;
+using System;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Security;
 
 namespace MvcAppHelloWorld.Controllers
 {
     public class HomeController : Controller
     {
+        
         public ActionResult Index()
         {
             return View();
@@ -23,5 +30,13 @@ namespace MvcAppHelloWorld.Controllers
 
             return View();
         }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        
+
     }
 }

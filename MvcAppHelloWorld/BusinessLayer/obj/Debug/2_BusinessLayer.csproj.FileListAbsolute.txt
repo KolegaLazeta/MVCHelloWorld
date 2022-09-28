@@ -258,3 +258,7 @@ D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\BusinessLayer\obj\Debug\2_Business
 D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\BusinessLayer\obj\Debug\2_BusinessLayer.csproj.CopyComplete
 D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\BusinessLayer\obj\Debug\BusinessLayer.dll
 D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\BusinessLayer\obj\Debug\BusinessLayer.pdb
+D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\BusinessLayer\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\BusinessLayer\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\BusinessLayer\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\ProjectsGIT\MVCHelloWorld\MvcAppHelloWorld\BusinessLayer\bin\Debug\Microsoft.AspNet.Identity.Core.xml
