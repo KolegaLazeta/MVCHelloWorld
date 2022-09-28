@@ -189,6 +189,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationService\CollegeAppService\CollegeAppService.cs" />
+    <Compile Include="ApplicationService\GenericAppService\GenericAppService.cs" />
+    <Compile Include="ApplicationService\GenericAppService\IGenericAppService.cs" />
+    <Compile Include="ApplicationService\HighSchoolAppService\HighSchoolAppService.cs" />
+    <Compile Include="ApplicationService\ProfessorAppService\ProfessorAppService.cs" />
+    <Compile Include="ApplicationService\Role\RoleAppService.cs" />
+    <Compile Include="ApplicationService\UserAppService\UserAppService.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -207,6 +214,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\HighSchoolViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

@@ -27,6 +27,12 @@ namespace MvcAppHelloWorld
             container.RegisterType<IGenericService<Professor>, ProfessorService>();
             container.RegisterType<IGenericService<Users>, UserService>();
 
+            container.RegisterType<IGenericAppService<Users>, UserAppService>();
+            container.RegisterType<IGenericAppService<HighSchool>, HighSchoolAppService>();
+            container.RegisterType<IGenericAppService<College>, CollegeAppService>();
+            container.RegisterType<IGenericAppService<Role>, RoleAppService>();
+            container.RegisterType<IGenericAppService<Professor>, ProfessorAppService>();
+
             // e.g. container.RegisterType<ITestService, TestService>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));

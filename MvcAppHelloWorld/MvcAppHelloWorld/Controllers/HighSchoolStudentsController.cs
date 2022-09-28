@@ -4,15 +4,16 @@ using System.Web.Mvc;
 using System.Web.Security;
 using System.Collections.Generic;
 using System.Linq;
+using MvcAppHelloWorld;
 
 namespace Controllers
 {
     [Authorize(Roles = "HighSchool, Professor, Admin")]
     public class HighSchoolStudentsController : GenericController<HighSchool>
     {
-        private readonly IGenericService<HighSchool> _highSchoolSrervice;
-        private readonly IGenericService<Role> _roleService;
-        public HighSchoolStudentsController(IGenericService<HighSchool> highSchoolService, IGenericService<Role> roleService) : base(highSchoolService)
+        private readonly IGenericAppService<HighSchool> _highSchoolSrervice;
+        private readonly IGenericAppService<Role> _roleService;
+        public HighSchoolStudentsController(IGenericAppService<HighSchool> highSchoolService, IGenericAppService<Role> roleService) : base(highSchoolService)
         {
             _highSchoolSrervice = highSchoolService;
             _roleService = roleService;
@@ -36,5 +37,6 @@ namespace Controllers
             return RedirectToAction("Index");
         }
 
+        
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BusinessLayer;
 using BusinessObjectModel;
+using MvcAppHelloWorld;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -9,9 +10,9 @@ namespace Controllers
     [Authorize(Roles = "College, Professor, Admin")]
     public class CollegeStudentsController : GenericController<College>
     {
-        private readonly IGenericService<College> _collegeSrervice;
-        private readonly IGenericService<Role> _roleService;
-        public CollegeStudentsController(IGenericService<College> collegeService, IGenericService<Role> roleService) : base(collegeService)
+        private readonly IGenericAppService<College> _collegeSrervice;
+        private readonly IGenericAppService<Role> _roleService;
+        public CollegeStudentsController(IGenericAppService<College> collegeService, IGenericAppService<Role> roleService) : base(collegeService)
         {
             _collegeSrervice = collegeService;
             _roleService = roleService;

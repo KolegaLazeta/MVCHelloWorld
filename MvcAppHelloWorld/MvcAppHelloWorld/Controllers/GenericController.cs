@@ -1,13 +1,14 @@
 ﻿using BusinessLayer;
+using MvcAppHelloWorld;
 using System.Web.Mvc;
 
 namespace Controllers
 {
     public class GenericController<T> : Controller where T : class {
 
-        private IGenericService<T> _service;
+        private IGenericAppService<T> _service;
 
-        public GenericController(IGenericService<T> service)
+        public GenericController(IGenericAppService<T> service)
         {
             _service = service;
         }
@@ -18,7 +19,7 @@ namespace Controllers
             return View("Index", studentList);
         }
 
-        public ActionResult Edit(int id)
+        public virtual ActionResult Edit(int id)
         {
             ViewBag.readOnly = false;
             ViewBag.disabled = "";
@@ -26,7 +27,7 @@ namespace Controllers
             return View("Details", student);
         }
 
-        public ActionResult Details(int id)
+        public virtual ActionResult Details(int id)
         {
             ViewBag.readOnly = true;
             ViewBag.disabled = "disabled";

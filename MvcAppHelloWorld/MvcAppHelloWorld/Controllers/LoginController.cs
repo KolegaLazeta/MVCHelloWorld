@@ -11,8 +11,8 @@ namespace MvcAppHelloWorld.Controllers
 {
     public class LoginController : Controller
     {
-        private IGenericService<Users> _service;
-        public LoginController(IGenericService<Users> service)
+        private IGenericAppService<Users> _service;
+        public LoginController(IGenericAppService<Users> service)
         {
             _service = service;
         }
@@ -50,7 +50,7 @@ namespace MvcAppHelloWorld.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Login");
         }
     }
 }
