@@ -11,8 +11,8 @@ namespace MvcAppHelloWorld.Controllers
 {
     public class LoginController : Controller
     {
-        private IGenericAppService<Users> _service;
-        public LoginController(IGenericAppService<Users> service)
+        private IGenericAppService<UsersViewModel, Users> _service;
+        public LoginController(IGenericAppService<UsersViewModel, Users> service)
         {
             _service = service;
         }

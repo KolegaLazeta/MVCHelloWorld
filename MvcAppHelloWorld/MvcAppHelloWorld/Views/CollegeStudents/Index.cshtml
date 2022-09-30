@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BusinessObjectModel.College>
+﻿@model IEnumerable<CollegeViewModel>
 
 @{
     ViewBag.Title = "College Students";
@@ -10,7 +10,7 @@
 <div class="row d-flex justify-content-end">
     @if (User.IsInRole("Professor"))
     {
-        @Html.ActionLink("Add College Student", "Create")
+        @Html.ActionLink("Create new", "Create", "CollegeStudents", new { @class = "btn btn-success btn-sm" })
 
     }
 

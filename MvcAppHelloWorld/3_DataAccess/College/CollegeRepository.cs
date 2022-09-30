@@ -85,12 +85,12 @@ namespace DataAccess
             db.UserRole.AddRange(college.UserRole);
             db.SaveChanges();
         }
-        public override void Delete(int id)
-        {
-            var userRole = db.UserRole.Where(ur => ur.UserId == id);
-            db.UserRole.RemoveRange(userRole);
-            db.Users.Remove(GetByID(id));
-        }
+        //public override void Delete(int id)
+        //{
+        //    var userRole = db.UserRole.Where(ur => ur.UserId == id);
+        //    db.UserRole.RemoveRange(userRole);
+        //    db.Users.Remove(GetByID(id));
+        //}
         public override List<College> GetList()
         {
             return db.College.Include("UserRole").ToList();

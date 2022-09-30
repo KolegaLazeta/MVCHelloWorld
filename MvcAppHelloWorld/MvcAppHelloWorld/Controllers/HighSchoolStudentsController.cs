@@ -9,34 +9,52 @@ using MvcAppHelloWorld;
 namespace Controllers
 {
     [Authorize(Roles = "HighSchool, Professor, Admin")]
-    public class HighSchoolStudentsController : GenericController<HighSchool>
+    public class HighSchoolStudentsController : GenericController<HighSchoolViewModel, HighSchool>
     {
-        private readonly IGenericAppService<HighSchool> _highSchoolSrervice;
-        private readonly IGenericAppService<Role> _roleService;
-        public HighSchoolStudentsController(IGenericAppService<HighSchool> highSchoolService, IGenericAppService<Role> roleService) : base(highSchoolService)
+        private readonly IGenericAppService<HighSchoolViewModel, HighSchool> _highSchoolService;
+        private readonly IGenericAppService<RoleViewModel, Role> _roleAppService;
+        public HighSchoolStudentsController(IGenericAppService<HighSchoolViewModel, HighSchool> highSchoolService, IGenericAppService<RoleViewModel,Role> roleService) : base(highSchoolService)
         {
-            _highSchoolSrervice = highSchoolService;
-            _roleService = roleService;
+            _highSchoolService = highSchoolService;
+            _roleAppService = roleService;
         }
 
-        public override ActionResult Save(HighSchool highSchool)
+        public override ActionResult Save(HighSchoolViewModel highSchool)
         {
             highSchool.UserRole = new List<UserRole>();
 
             UserRole userRole = new UserRole
             {
                 UserId = highSchool.UserId,
-                RoleId = _roleService.GetList().FirstOrDefault(ur => ur.Name == "HighSchool").RoleId
+                RoleId = _roleAppService.GetList().FirstOrDefault(ur => ur.Name == "HighSchool").RoleId
             };
 
             highSchool.UserRole.Add(userRole);
 
-            _highSchoolSrervice.Create(highSchool);
-            _highSchoolSrervice.Save();
+            _highSchoolService.Create(highSchool);
+            _highSchoolService.Save();
 
             return RedirectToAction("Index");
         }
 
-        
+
+        // ne prikazuje podatke
+        public override ActionResult Details(int id)
+        {
+            HighSchoolViewModel viewModel = _highSchoolService.GetByID(id);
+            viewModel.ReadOnly = true;
+            viewModel.Title = "Details";
+            viewModel.Disabled = "disabled";
+            return View("Details", viewModel);
+        }
+        public override ActionResult Edit(int id)
+        {
+            HighSchoolViewModel viewModel = _highSchoolService.GetByID(id);
+            viewModel.ReadOnly = false;
+            viewModel.Title = "Edit";
+            viewModel.Disabled = "";
+            return View("Details", viewModel);
+        }
+
     }
 }

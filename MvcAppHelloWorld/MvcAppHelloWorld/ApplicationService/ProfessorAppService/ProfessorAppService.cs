@@ -1,4 +1,5 @@
-﻿using BusinessLayer;
+﻿using AutoMapper;
+using BusinessLayer;
 using BusinessObjectModel;
 using System;
 using System.Collections.Generic;
@@ -7,9 +8,9 @@ using System.Web;
 
 namespace MvcAppHelloWorld
 {
-    public class ProfessorAppService : GenericAppService<Professor>
+    public class ProfessorAppService : GenericAppService<ProfessorViewModel, Professor>
     {
-        public ProfessorAppService(IGenericService<Professor> genericService) :base(genericService)
+        public ProfessorAppService(IGenericService<Professor> genericService, IMapper mapper) : base(genericService, mapper)
         {
 
         }

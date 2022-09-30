@@ -27,13 +27,13 @@ namespace DataAccess
             db.UserRole.AddRange(professor.UserRole);
             db.SaveChanges();
         }
-        public override void Delete(int id)
-        {
-            var userRoles = db.UserRole.Where(ur => ur.UserId == id);
-            db.UserRole.RemoveRange(userRoles);
-            db.Users.Remove(GetByID(id));
-            db.SaveChanges();
-        }
+        //public override void Delete(int id)
+        //{
+        //    var userRoles = db.UserRole.Where(ur => ur.UserId == id);
+        //    db.UserRole.RemoveRange(userRoles);
+        //    db.Users.Remove(GetByID(id));
+        //    db.SaveChanges();
+        //}
 
     }
 }

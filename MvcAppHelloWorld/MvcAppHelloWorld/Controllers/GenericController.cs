@@ -1,18 +1,21 @@
 ﻿using BusinessLayer;
+using BusinessObjectModel;
 using MvcAppHelloWorld;
 using System.Web.Mvc;
 
 namespace Controllers
 {
-    public class GenericController<T> : Controller where T : class {
+    public class GenericController<TViewModel, TModel> : Controller where TModel : class where TViewModel :class
+    {
 
-        private IGenericAppService<T> _service;
+        private IGenericAppService<TViewModel, TModel> _service;
 
-        public GenericController(IGenericAppService<T> service)
+        public GenericController(IGenericAppService<TViewModel, TModel> service)
         {
             _service = service;
         }
 
+        
         public ActionResult Index()
         {
             var studentList = _service.GetList();
@@ -21,21 +24,17 @@ namespace Controllers
 
         public virtual ActionResult Edit(int id)
         {
-            ViewBag.readOnly = false;
-            ViewBag.disabled = "";
             var student = _service.GetByID(id);
             return View("Details", student);
         }
 
         public virtual ActionResult Details(int id)
         {
-            ViewBag.readOnly = true;
-            ViewBag.disabled = "disabled";
             var student = _service.GetByID(id);
             return View("Details", student);
         }
 
-        public ActionResult EditDetails(T obj)
+        public virtual ActionResult EditDetails(TViewModel obj)
         {
             _service.EditDetails(obj);
             _service.Save();
@@ -48,7 +47,7 @@ namespace Controllers
         }
 
         [HttpPost]
-        public virtual ActionResult Save (T obj)
+        public virtual ActionResult Save (TViewModel obj)
         {
             _service.Create(obj);
             _service.Save();
@@ -57,16 +56,9 @@ namespace Controllers
 
         public ActionResult Delete(int id)
         {
-            try
-            {
                 _service.Delete(id);
                 _service.Save();
-                return RedirectToAction("");
-            }
-            catch
-            {
-                return RedirectToAction("");
-            }
+                return RedirectToAction("Index");
         }
 
         public ActionResult Search(string searchString)

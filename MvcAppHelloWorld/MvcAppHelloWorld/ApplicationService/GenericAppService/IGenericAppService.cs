@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace MvcAppHelloWorld
 {
-    public interface IGenericAppService<T>
+    public interface IGenericAppService<TViewModel, TModel>
     {
-        List<T> GetList();
-        IEnumerable<T> Search(string searchString);
+        List<TViewModel> GetList();
+        IEnumerable<TViewModel> Search(string searchString);
         void Export(int id);
-        T GetByID(int id);
-        void EditDetails(T obj);
-        void Create(T obj);
+        TViewModel GetByID(int id);
+        void EditDetails(TViewModel viewModel);
+        void Create(TViewModel viewModel);
         void Delete(int id);
         void Save();
     }

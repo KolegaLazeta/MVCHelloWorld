@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BusinessObjectModel.Professor>
+﻿@model IEnumerable<ProfessorViewModel>
 
 @{
     ViewBag.Title = "View";
@@ -8,13 +8,11 @@
 }
 
 <h2>View</h2>
-@if(User.IsInRole("Admin"))
-            {
+@if (User.IsInRole("Admin"))
+{
+    @Html.ActionLink("Create new", "Create", "Professor", new { @class = "btn btn-success btn-sm" })
 
-    <p>
-            @Html.ActionLink("Add Professor", "Create")
-    </p>
-            }
+}
 <div class="col-md-3">
     @using (Html.BeginForm("Search", "Professor", FormMethod.Get))
     {
@@ -34,15 +32,15 @@
         <th>
             @Html.DisplayNameFor(model => model.Lastname)
         </th>
-     
+
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Phone_Number)
         </th>
-       
-     
+
+
         <th>
             @Html.DisplayNameFor(model => model.ClassSubject)
         </th>
@@ -61,16 +59,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Lastname)
             </td>
-            
+
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
-            
+
 
             <td>
                 @Html.DisplayFor(modelItem => item.Phone_Number)
             </td>
-        
+
             <td>
                 @Html.DisplayFor(modelItem => item.ClassSubject)
             </td>
@@ -78,13 +76,13 @@
                 @Html.DisplayFor(modelItem => item.Cabinet)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.UserId }, new { @class = "btn btn-info btn-sm" }) 
-                @if(User.IsInRole("Admin"))
-                    {
-                        @Html.ActionLink("Edit", "Edit", new { id = item.UserId }, new { @class = "btn btn-primary btn-sm" }) 
-                        @Html.ActionLink("Delete", "Delete", new { id = item.UserId }, new { @class = "btn btn-danger btn-sm" }) 
-                        
-                    }
+                @Html.ActionLink("Details", "Details", new { id = item.UserId }, new { @class = "btn btn-info btn-sm" })
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.UserId }, new { @class = "btn btn-primary btn-sm" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.UserId }, new { @class = "btn btn-danger btn-sm" })
+
+                }
             </td>
 
         </tr>

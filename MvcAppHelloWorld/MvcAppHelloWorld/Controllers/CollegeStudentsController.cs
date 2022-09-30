@@ -8,17 +8,17 @@ using System.Web.Mvc;
 namespace Controllers
 {
     [Authorize(Roles = "College, Professor, Admin")]
-    public class CollegeStudentsController : GenericController<College>
+    public class CollegeStudentsController : GenericController<CollegeViewModel, College>
     {
-        private readonly IGenericAppService<College> _collegeSrervice;
-        private readonly IGenericAppService<Role> _roleService;
-        public CollegeStudentsController(IGenericAppService<College> collegeService, IGenericAppService<Role> roleService) : base(collegeService)
+        private readonly IGenericAppService<CollegeViewModel, College> _collegeService;
+        private readonly IGenericAppService<RoleViewModel, Role> _roleService;
+        public CollegeStudentsController(IGenericAppService<CollegeViewModel, College> collegeService, IGenericAppService<RoleViewModel, Role> roleService) : base(collegeService)
         {
-            _collegeSrervice = collegeService;
+            _collegeService = collegeService;
             _roleService = roleService;
         }
 
-        public override ActionResult Save(College college)
+        public override ActionResult Save(CollegeViewModel college)
         {
             college.UserRole = new List<UserRole>();
 
@@ -30,10 +30,26 @@ namespace Controllers
 
             college.UserRole.Add(userRole);
 
-            _collegeSrervice.Create(college);
-            _collegeSrervice.Save();
+            _collegeService.Create(college);
+            _collegeService.Save();
             return RedirectToAction("Index");
 
+        }
+        public override ActionResult Details(int id)
+        {
+            CollegeViewModel viewModel = _collegeService.GetByID(id);
+            viewModel.ReadOnly = true;
+            viewModel.Title = "Details";
+            viewModel.Disabled = "disabled";
+            return View("Details", viewModel);
+        }
+        public override ActionResult Edit(int id)
+        {
+            CollegeViewModel viewModel = _collegeService.GetByID(id);
+            viewModel.ReadOnly = false;
+            viewModel.Title = "Edit";
+            viewModel.Disabled = "";
+            return View("Details", viewModel);
         }
     }
 }

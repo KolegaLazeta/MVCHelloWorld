@@ -131,3 +131,5 @@ D:\GitProjects\MVCHelloWorld\MvcAppHelloWorld\MvcAppHelloWorld\obj\Debug\1_Prese
 D:\GitProjects\MVCHelloWorld\MvcAppHelloWorld\MvcAppHelloWorld\obj\Debug\1_Presentation.csproj.CopyComplete
 D:\GitProjects\MVCHelloWorld\MvcAppHelloWorld\MvcAppHelloWorld\obj\Debug\MvcAppHelloWorld.dll
 D:\GitProjects\MVCHelloWorld\MvcAppHelloWorld\MvcAppHelloWorld\obj\Debug\MvcAppHelloWorld.pdb
+D:\GitProjects\MVCHelloWorld\MvcAppHelloWorld\MvcAppHelloWorld\bin\AutoMapper.dll
+D:\GitProjects\MVCHelloWorld\MvcAppHelloWorld\MvcAppHelloWorld\bin\AutoMapper.xml

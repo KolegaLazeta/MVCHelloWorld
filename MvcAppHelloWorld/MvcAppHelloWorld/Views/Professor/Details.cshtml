@@ -1,4 +1,4 @@
-﻿@model BusinessObjectModel.Professor
+﻿@model ProfessorViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -18,20 +18,20 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Cabinet, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
-                @Html.EditorFor(model => model.Cabinet, ViewBag.readOnly == true ? (object)new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } } : (object)new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Cabinet, Model.ReadOnly == true ? (object)new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } } : (object)new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Cabinet, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.ClassSubject, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
-                @Html.EditorFor(model => model.ClassSubject, ViewBag.readOnly == true ? (object)new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } } : (object)new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ClassSubject, Model.ReadOnly == true ? (object)new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } } : (object)new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ClassSubject, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" @ViewBag.disabled />
+                <input type="submit" value="Save" class="btn btn-default" @Model.Disabled />
             </div>
         </div>
     </div>

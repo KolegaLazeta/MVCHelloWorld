@@ -22,7 +22,7 @@ namespace BusinessLayer
         {
             return _repository.GetByID(id);
         }
-        public void EditDetails(T obj)
+        public virtual void EditDetails(T obj)
         {
             _repository.EditDetails(obj);
         }

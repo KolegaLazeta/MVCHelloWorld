@@ -4,6 +4,7 @@ using BusinessObjectModel;
 using System.Web.Mvc;
 using Unity;
 using Unity.Mvc5;
+using AutoMapper;
 
 namespace MvcAppHelloWorld
 {
@@ -27,13 +28,18 @@ namespace MvcAppHelloWorld
             container.RegisterType<IGenericService<Professor>, ProfessorService>();
             container.RegisterType<IGenericService<Users>, UserService>();
 
-            container.RegisterType<IGenericAppService<Users>, UserAppService>();
-            container.RegisterType<IGenericAppService<HighSchool>, HighSchoolAppService>();
-            container.RegisterType<IGenericAppService<College>, CollegeAppService>();
-            container.RegisterType<IGenericAppService<Role>, RoleAppService>();
-            container.RegisterType<IGenericAppService<Professor>, ProfessorAppService>();
+            container.RegisterType<IGenericAppService<UsersViewModel, Users>, UserAppService>();
+            container.RegisterType<IGenericAppService<HighSchoolViewModel, HighSchool>, HighSchoolAppService>();
+            container.RegisterType<IGenericAppService<CollegeViewModel, College>, CollegeAppService>();
+            container.RegisterType<IGenericAppService<RoleViewModel, Role>, RoleAppService>();
+            container.RegisterType<IGenericAppService<ProfessorViewModel, Professor>, ProfessorAppService>();
 
             // e.g. container.RegisterType<ITestService, TestService>();
+
+            MapperConfiguration config = AutoMappingProfile.Configure();
+            IMapper mapper = config.CreateMapper();
+
+            container.RegisterInstance(mapper);
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
