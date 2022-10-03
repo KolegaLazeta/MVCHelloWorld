@@ -51,5 +51,11 @@ namespace Controllers
             viewModel.Disabled = "";
             return View("Details", viewModel);
         }
+        public ActionResult Profile()
+        {
+            CollegeViewModel usersViewModel = _collegeService.GetByID(_collegeService.GetList().FirstOrDefault(u => u.Email == User.Identity.Name).UserId);
+
+            return View(usersViewModel);
+        }
     }
 }

@@ -38,19 +38,17 @@
 
                         if (User.IsInRole("Professor"))
                         {
-                            <li>@Html.ActionLink("User", "Index", "User")</li>
+                            <li>@Html.ActionLink("User Profile", "Profile", "Professor")</li>
                             <li>@Html.ActionLink("College Students", "Index", "CollegeStudents")</li>
                             <li>@Html.ActionLink("High School Students", "Index", "HighSchoolStudents")</li>
                         }
                         if (User.IsInRole("College"))
                         {
-                            <li>@Html.ActionLink("User", "Index", "User")</li>
-                            <li>@Html.ActionLink("College Students", "Index", "CollegeStudents")</li>
+                            <li>@Html.ActionLink("User Profile", "Profile", "CollegeStudents")</li>
                         }
                         if (User.IsInRole("HighSchool"))
                         {
-                            <li>@Html.ActionLink("User", "Index", "User")</li>
-                            <li>@Html.ActionLink("High School Students", "Index", "HighSchoolStudents")</li>
+                            <li>@Html.ActionLink("User Profile", "Profile", "HighSchoolStudents")</li>
                         }
 
                         <li>@Html.ActionLink("Logout", "Logout", "Login")</li>

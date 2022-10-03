@@ -55,6 +55,12 @@ namespace Controllers
             viewModel.Disabled = "";
             return View("Details", viewModel);
         }
+        public ActionResult Profile()
+        {
+            HighSchoolViewModel usersViewModel = _highSchoolService.GetByID(_highSchoolService.GetList().FirstOrDefault(u => u.Email == User.Identity.Name).UserId);
+
+            return View(usersViewModel);
+        }
 
     }
 }

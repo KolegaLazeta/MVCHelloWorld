@@ -41,8 +41,18 @@ namespace MvcAppHelloWorld.Controllers
                     {
                         return RedirectToAction("Index", "Admin", user);
                     }
-
-                    return RedirectToAction("Index", "User", user);
+                    if (user.UserRole.FirstOrDefault(ur => ur.Role.Name == "Professor") != null)
+                    {
+                        return RedirectToAction("Profile", "Professor", user);
+                    }
+                    if (user.UserRole.FirstOrDefault(ur => ur.Role.Name == "College") != null)
+                    {
+                        return RedirectToAction("Profile", "CollegeStudents", user);
+                    }
+                    if (user.UserRole.FirstOrDefault(ur => ur.Role.Name == "HighSchol") != null)
+                    {
+                        return RedirectToAction("Profile", "HighSchoolStudents", user);
+                    }
                 }
                 return View("Login");
             }

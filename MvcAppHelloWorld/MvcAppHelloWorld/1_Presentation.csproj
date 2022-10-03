@@ -281,7 +281,12 @@
     <Content Include="Views\Professor\Create.cshtml" />
     <Content Include="Views\Professor\Details.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Profile.cshtml" />
+    <Content Include="Views\Shared\_highSchoolStudentDetails.cshtml" />
+    <Content Include="Views\Shared\_collegeStudentDetails.cshtml" />
+    <Content Include="Views\CollegeStudents\Profile.cshtml" />
+    <Content Include="Views\HighSchoolStudents\Profile.cshtml" />
+    <Content Include="Views\Professor\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

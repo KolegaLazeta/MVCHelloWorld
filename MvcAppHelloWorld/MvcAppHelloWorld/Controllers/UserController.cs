@@ -2,16 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using MvcAppHelloWorld;
 using System.Web.Mvc;
+using BusinessObjectModel;
+using Microsoft.AspNet.Identity;
 
-namespace MvcAppHelloWorld.Controllers
+namespace Controllers
 {
-    public class UserController : Controller
+    public class UserController : GenericController<UsersViewModel, Users>
     {
-        // GET: User
-        public ActionResult Index()
+        private readonly IGenericAppService<UsersViewModel, Users> _userAppService;
+        private readonly IGenericAppService<RoleViewModel, Role> _roleAppService;
+
+
+        public UserController(IGenericAppService<UsersViewModel, Users> userAppService, IGenericAppService<RoleViewModel, Role> roleAppService) :base(userAppService)
         {
-            return View();
+            _userAppService = userAppService;
+            _roleAppService = roleAppService;
+        }
+
+        public ActionResult Profile()
+        {
+            UsersViewModel usersViewModel = _userAppService.GetByID(_userAppService.GetList().FirstOrDefault(u => u.Email == User.Identity.Name).UserId);
+            
+            return View(usersViewModel);
         }
     }
 }
