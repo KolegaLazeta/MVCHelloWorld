@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BusinessObjectModel;
+using DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,16 @@ namespace MvcAppHelloWorld
 
                     config.CreateMap<Professor, ProfessorViewModel>();
                     config.CreateMap<ProfessorViewModel, Professor>();
+
+                    config.CreateMap<ProfessorViewModel, ProfessorQueryModel>();
+                    config.CreateMap<ProfessorQueryModel, ProfessorViewModel>();
+
+                    config.CreateMap<HighSchoolViewModel, HighSchoolStudentsQueryModel>();
+                    config.CreateMap<HighSchoolStudentsQueryModel, HighSchoolViewModel>();
+
+                    config.CreateMap<CollegeViewModel, CollegeStudentsQueryModel>();
+                    config.CreateMap<CollegeStudentsQueryModel, CollegeViewModel>();
+
                 });
             return mapperCofiguration;
         }

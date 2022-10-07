@@ -5,6 +5,7 @@ using MvcAppHelloWorld;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using DataAccess;
 
 namespace Controllers
 {
@@ -13,10 +14,23 @@ namespace Controllers
     {
         private readonly IGenericAppService<ProfessorViewModel, Professor> _professorService;
         private readonly IGenericAppService<RoleViewModel, Role> _roleService;
-        public ProfessorController(IGenericAppService<ProfessorViewModel, Professor> professorService, IGenericAppService<RoleViewModel, Role> roleService, IMapper mapper) : base(professorService)
+        private readonly IGenericAppService<ProfessorViewModel, ProfessorQueryModel> _professorQueryService;
+
+        public ProfessorController(IGenericAppService<ProfessorViewModel, Professor> professorService,
+            IGenericAppService<RoleViewModel, Role> roleService, IMapper mapper,
+            IGenericAppService<ProfessorViewModel, ProfessorQueryModel> professorQueryService) : base(professorService)
         {
             _professorService = professorService;
             _roleService = roleService;
+            _professorQueryService = professorQueryService;
+        }
+
+        [Authorize(Roles = "Admin, Professor")]
+
+        public override ActionResult Index()
+        {
+            var list = _professorQueryService.GetList();
+            return View(list);
         }
 
         [Authorize(Roles = "Admin")]

@@ -268,12 +268,6 @@
             be part of an evaluated sub-tree.
             </summary>
         </member>
-        <member name="T:Moq.Expectation">
-            <summary>
-              Represents a set (or the "shape") of invocations
-              against which concrete <see cref="T:Moq.Invocation"/>s can be matched.
-            </summary>
-        </member>
         <member name="T:Moq.ExpressionCompiler">
             <summary>
               An <see cref="T:Moq.ExpressionCompiler"/> compiles LINQ expression trees (<see cref="T:System.Linq.Expressions.Expression"/>) to delegates.
@@ -547,44 +541,11 @@
             Reference the Mock that contains this as the <c>mock.Object</c> value.
             </summary>
         </member>
-        <member name="T:Moq.CastleProxyFactory">
-            <summary>
-            An implementation of <see cref="T:Moq.ProxyFactory"/> that is based on Castle DynamicProxy.
-            </summary>
-        </member>
-        <member name="M:Moq.CastleProxyFactory.CreateProxy(System.Type,Moq.IInterceptor,System.Type[],System.Object[])">
-            <inheritdoc />
-        </member>
-        <member name="T:Moq.CastleProxyFactory.IncludeObjectMethodsHook">
-            <summary>
-            This hook tells Castle DynamicProxy to proxy the default methods it suggests,
-            plus some of the methods defined by <see cref="T:System.Object"/>, e.g. so we can intercept
-            <see cref="M:System.Object.ToString"/> and give mocks useful default names.
-            </summary>
-        </member>
         <member name="T:Moq.IInterceptor">
             <summary>
             This role interface represents a <see cref="T:Moq.Mock"/>'s ability to intercept method invocations for its <see cref="P:Moq.Mock.Object"/>.
             It is meant for use by <see cref="T:Moq.ProxyFactory"/>.
             </summary>
-        </member>
-        <member name="T:Moq.Internals.InterfaceProxy">
-            <summary>Do not use. (Moq requires this class so that <see langword="object"/> methods can be set up on interface mocks.)</summary>
-        </member>
-        <member name="M:Moq.Internals.InterfaceProxy.Equals(System.Object)">
-            <summary/>
-        </member>
-        <member name="M:Moq.Internals.InterfaceProxy.GetHashCode">
-            <summary/>
-        </member>
-        <member name="M:Moq.Internals.InterfaceProxy.ToString">
-            <summary/>
-        </member>
-        <member name="T:Moq.Internals.IProxy">
-            <summary>Do not use. (Moq requires this interface so that <see langword="object"/> methods can be set up on interface mocks.)</summary>
-        </member>
-        <member name="P:Moq.Internals.IProxy.Interceptor">
-            <summary/>
         </member>
         <member name="T:Moq.Mock">
             <summary>
@@ -725,6 +686,13 @@
             e. g. to produce default return values for unexpected invocations.
             </summary>
         </member>
+        <member name="P:Moq.Mock.AutoSetupPropertiesDefaultValueProvider">
+            <summary>
+            The <see cref="T:Moq.DefaultValueProvider"/> used to initialize automatically stubbed properties.
+            It is equal to the value of <see cref="P:Moq.Mock.DefaultValueProvider"/> at the time when
+            <see cref="M:Moq.Mock.SetupAllProperties(Moq.Mock)"/> was last called.
+            </summary>
+        </member>
         <member name="P:Moq.Mock.Setups">
             <summary>
               Gets the setups that have been configured on this mock,
@@ -809,11 +777,6 @@
             Default return value is respected only when there is no matching setup for a method call.
             </remarks>
         </member>
-        <member name="P:Moq.ProxyFactory.Instance">
-            <summary>
-            Gets the global <see cref="T:Moq.ProxyFactory"/> instance used by Moq.
-            </summary>
-        </member>
         <member name="M:Moq.Invocation.#ctor(System.Type,System.Reflection.MethodInfo,System.Object[])">
             <summary>
             Initializes a new instance of the <see cref="T:Moq.Invocation"/> class.
@@ -887,6 +850,17 @@
               Initializes a new instance of the <see cref="T:Moq.InvocationFunc"/> type.
             </summary>
             <param name="func">The delegate that should be wrapped by this instance.</param>
+        </member>
+        <member name="T:Moq.InvocationShape">
+            <summary>
+              Describes the "shape" of an invocation against which concrete <see cref="T:Moq.Invocation"/>s can be matched.
+              <para>
+                This shape is described by <see cref="F:Moq.InvocationShape.Expression"/> which has the general form
+                `mock => mock.Method(...arguments)`. Because the method and arguments are frequently needed,
+                they are cached in <see cref="F:Moq.InvocationShape.Method"/> and <see cref="F:Moq.InvocationShape.Arguments"/>
+                for faster access.
+              </para>
+            </summary>
         </member>
         <member name="T:Moq.ISetup">
             <summary>
@@ -3111,7 +3085,7 @@
             mock.Setup(x => x.Execute(
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;()))
-                .Returns((int arg1, int arg2) => arg1 + arg2);
+                .Returns((string arg1, string arg2) => arg1 + arg2);
             </code>
             </example>
         </member>
@@ -3136,7 +3110,7 @@
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;()))
-                .Returns((int arg1, int arg2, int arg3) => arg1 + arg2 + arg3);
+                .Returns((string arg1, string arg2, string arg3) => arg1 + arg2 + arg3);
             </code>
             </example>
         </member>
@@ -3163,7 +3137,7 @@
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;()))
-                .Returns((int arg1, int arg2, int arg3, int arg4) => arg1 + arg2 + arg3 + arg4);
+                .Returns((string arg1, string arg2, string arg3, string arg4) => arg1 + arg2 + arg3 + arg4);
             </code>
             </example>
         </member>
@@ -3192,7 +3166,7 @@
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;()))
-                .Returns((int arg1, int arg2, int arg3, int arg4, int arg5) => arg1 + arg2 + arg3 + arg4 + arg5);
+                .Returns((string arg1, string arg2, string arg3, string arg4, string arg5) => arg1 + arg2 + arg3 + arg4 + arg5);
             </code>
             </example>
         </member>
@@ -3223,7 +3197,7 @@
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;()))
-                .Returns((int arg1, int arg2, int arg3, int arg4, int arg5, int arg6) => arg1 + arg2 + arg3 + arg4 + arg5 + arg6);
+                .Returns((string arg1, string arg2, string arg3, string arg4, string arg5, string arg6) => arg1 + arg2 + arg3 + arg4 + arg5 + arg6);
             </code>
             </example>
         </member>
@@ -3256,7 +3230,7 @@
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;()))
-                .Returns((int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7) => arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7);
+                .Returns((string arg1, string arg2, string arg3, string arg4, string arg5, string arg6, string arg7) => arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7);
             </code>
             </example>
         </member>
@@ -3291,7 +3265,7 @@
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;()))
-                .Returns((int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8) => arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8);
+                .Returns((string arg1, string arg2, string arg3, string arg4, string arg5, string arg6, string arg7, string arg8) => arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8);
             </code>
             </example>
         </member>
@@ -3328,7 +3302,7 @@
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;()))
-                .Returns((int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9) => arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8 + arg9);
+                .Returns((string arg1, string arg2, string arg3, string arg4, string arg5, string arg6, string arg7, string arg8, string arg9) => arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8 + arg9);
             </code>
             </example>
         </member>
@@ -3367,7 +3341,7 @@
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;()))
-                .Returns((int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10) => arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8 + arg9 + arg10);
+                .Returns((string arg1, string arg2, string arg3, string arg4, string arg5, string arg6, string arg7, string arg8, string arg9, string arg10) => arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8 + arg9 + arg10);
             </code>
             </example>
         </member>
@@ -3408,7 +3382,7 @@
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;()))
-                .Returns((int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10, int arg11) => arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8 + arg9 + arg10 + arg11);
+                .Returns((string arg1, string arg2, string arg3, string arg4, string arg5, string arg6, string arg7, string arg8, string arg9, string arg10, string arg11) => arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8 + arg9 + arg10 + arg11);
             </code>
             </example>
         </member>
@@ -3451,7 +3425,7 @@
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;()))
-                .Returns((int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10, int arg11, int arg12) => arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8 + arg9 + arg10 + arg11 + arg12);
+                .Returns((string arg1, string arg2, string arg3, string arg4, string arg5, string arg6, string arg7, string arg8, string arg9, string arg10, string arg11, string arg12) => arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8 + arg9 + arg10 + arg11 + arg12);
             </code>
             </example>
         </member>
@@ -3496,7 +3470,7 @@
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;()))
-                .Returns((int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10, int arg11, int arg12, int arg13) => arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8 + arg9 + arg10 + arg11 + arg12 + arg13);
+                .Returns((string arg1, string arg2, string arg3, string arg4, string arg5, string arg6, string arg7, string arg8, string arg9, string arg10, string arg11, string arg12, string arg13) => arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8 + arg9 + arg10 + arg11 + arg12 + arg13);
             </code>
             </example>
         </member>
@@ -3543,7 +3517,7 @@
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;()))
-                .Returns((int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10, int arg11, int arg12, int arg13, int arg14) => arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8 + arg9 + arg10 + arg11 + arg12 + arg13 + arg14);
+                .Returns((string arg1, string arg2, string arg3, string arg4, string arg5, string arg6, string arg7, string arg8, string arg9, string arg10, string arg11, string arg12, string arg13, string arg14) => arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8 + arg9 + arg10 + arg11 + arg12 + arg13 + arg14);
             </code>
             </example>
         </member>
@@ -3592,7 +3566,7 @@
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;()))
-                .Returns((int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10, int arg11, int arg12, int arg13, int arg14, int arg15) => arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8 + arg9 + arg10 + arg11 + arg12 + arg13 + arg14 + arg15);
+                .Returns((string arg1, string arg2, string arg3, string arg4, string arg5, string arg6, string arg7, string arg8, string arg9, string arg10, string arg11, string arg12, string arg13, string arg14, string arg15) => arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8 + arg9 + arg10 + arg11 + arg12 + arg13 + arg14 + arg15);
             </code>
             </example>
         </member>
@@ -3643,7 +3617,7 @@
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;(), 
                                  It.IsAny&lt;int&gt;()))
-                .Returns((int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10, int arg11, int arg12, int arg13, int arg14, int arg15, int arg16) => arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8 + arg9 + arg10 + arg11 + arg12 + arg13 + arg14 + arg15 + arg16);
+                .Returns((string arg1, string arg2, string arg3, string arg4, string arg5, string arg6, string arg7, string arg8, string arg9, string arg10, string arg11, string arg12, string arg13, string arg14, string arg15, string arg16) => arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8 + arg9 + arg10 + arg11 + arg12 + arg13 + arg14 + arg15 + arg16);
             </code>
             </example>
         </member>
@@ -3781,20 +3755,6 @@
             </code>
             </example>
         </member>
-        <member name="M:Moq.Language.ISetupSequentialAction.Throws``1(System.Func{``0})">
-            <summary>
-            Configures the next call in the sequence to throw a calculated exception.
-            </summary>
-            <example>
-            The following code configures the first call to <c>Execute()</c>
-            to do nothing, and the second call to throw a calculated exception.
-            <code>
-            mock.SetupSequence(m => m.Execute())
-               .Pass()
-               .Throws(() => new InvalidOperationException());
-            </code>
-            </example>
-        </member>
         <member name="T:Moq.Language.ISetupSequentialResult`1">
             <summary>
             Language for ReturnSequence
@@ -3819,11 +3779,6 @@
         <member name="M:Moq.Language.ISetupSequentialResult`1.Throws``1">
             <summary>
             Throws an exception
-            </summary>
-        </member>
-        <member name="M:Moq.Language.ISetupSequentialResult`1.Throws``1(System.Func{``0})">
-            <summary>
-            Uses delegate to throws an exception
             </summary>
         </member>
         <member name="M:Moq.Language.ISetupSequentialResult`1.CallBase">
@@ -3861,617 +3816,6 @@
             <code>
             mock.Setup(x =&gt; x.Execute(""))
                 .Throws&lt;ArgumentException&gt;();
-            </code>
-            </example>
-        </member>
-        <member name="M:Moq.Language.IThrows.Throws(System.Delegate)">
-             <summary>
-             Specifies a function that will calculate the exception to throw when the method is invoked.
-             </summary>
-             <param name="exceptionFunction">The function that will calculate the exception to be thrown.</param>
-             <example>
-             Throw a calculated exception when the method is called:
-             <code>
-             delegate Exception ExecuteFunc(string name);
-            
-             String s = ...;
-             mock.Setup(x => x.Execute(s))
-                 .Throws(new ExecuteFunc((string s) => new Exception(s)));
-             </code>
-             </example>
-        </member>
-        <member name="M:Moq.Language.IThrows.Throws``1(System.Func{``0})">
-            <summary>
-            Specifies a function that will calculate the exception to throw when the method is invoked.
-            </summary>
-            <typeparam name="TException">Type of exception that will be calculated and thrown when the setup is matched.</typeparam>
-            <param name="exceptionFunction">The function that will calculate the exception to be thrown.</param>
-            <example>
-            Throw a calculated exception when the method is called:
-            <code>
-            mock.Setup(x => x.Execute("ping"))
-                .Throws(() => new Exception($"bad {returnValues[0]}"));
-            </code>
-            The lambda expression to retrieve the exception is lazy-executed, 
-            meaning that its exception may change depending on the moment the method 
-            is executed and the value the <c>returnValues</c> array has at 
-            that moment.
-            </example>
-        </member>
-        <member name="M:Moq.Language.IThrows.Throws``2(System.Func{``0,``1})">
-            <summary>
-            Specifies a function that will calculate the exception to throw when the method is invoked, 
-            retrieving the arguments for the invocation.
-            </summary>
-            <typeparam name="T">The type of the argument of the invoked method.</typeparam>
-            <typeparam name="TException">Type of exception that will be calculated and thrown when the setup is matched.</typeparam>
-            <param name="exceptionFunction">The function that will calculate the exception to be thrown.</param>
-            <example>
-            Throw a calculated exception which is evaluated lazily at the time of the invocation.
-            <para>
-            The lookup list can change between invocations and the setup 
-            will return different values accordingly. Also, notice how the specific 
-            string argument is retrieved by simply declaring it as part of the lambda 
-            expression:
-            </para>
-            <code>
-            mock.Setup(x => x.Execute(It.IsAny&lt;string&gt;()))
-                .Throws((string command) => new Exception(command));
-            </code>
-            </example>
-        </member>
-        <member name="M:Moq.Language.IThrows.Throws``3(System.Func{``0,``1,``2})">
-            <summary>
-            Specifies a function that will calculate the exception to throw when the method is invoked, 
-            retrieving the arguments for the invocation.
-            </summary>
-            <typeparam name="T1">The type of the first argument of the invoked method.</typeparam>
-            <typeparam name="T2">The type of the second argument of the invoked method.</typeparam>
-            <typeparam name="TException">Type of exception that will be calculated and thrown when the setup is matched.</typeparam>
-            <param name="exceptionFunction">The function that will calculate the exception to be thrown.</param>
-            <example>
-            <para>
-            The thrown exception is calculated from the value of the actual method invocation arguments. 
-            Notice how the arguments are retrieved by simply declaring them as part of the lambda 
-            expression:
-            </para>
-            <code>
-            mock.Setup(x => x.Execute(
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;()))
-                .Throws((string arg1, string arg2) => new Exception(arg1 + arg2));
-            </code>
-            </example>
-        </member>
-        <member name="M:Moq.Language.IThrows.Throws``4(System.Func{``0,``1,``2,``3})">
-            <summary>
-            Specifies a function that will calculate the exception to throw when the method is invoked, 
-            retrieving the arguments for the invocation.
-            </summary>
-            <typeparam name="T1">The type of the first argument of the invoked method.</typeparam>
-            <typeparam name="T2">The type of the second argument of the invoked method.</typeparam>
-            <typeparam name="T3">The type of the third argument of the invoked method.</typeparam>
-            <typeparam name="TException">Type of exception that will be calculated and thrown when the setup is matched.</typeparam>
-            <param name="exceptionFunction">The function that will calculate the exception to be thrown.</param>
-            <example>
-            <para>
-            The thrown exception is calculated from the value of the actual method invocation arguments. 
-            Notice how the arguments are retrieved by simply declaring them as part of the lambda 
-            expression:
-            </para>
-            <code>
-            mock.Setup(x => x.Execute(
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;()))
-                .Throws((string arg1, string arg2, string arg3) => new Exception(arg1 + arg2 + arg3));
-            </code>
-            </example>
-        </member>
-        <member name="M:Moq.Language.IThrows.Throws``5(System.Func{``0,``1,``2,``3,``4})">
-            <summary>
-            Specifies a function that will calculate the exception to throw when the method is invoked, 
-            retrieving the arguments for the invocation.
-            </summary>
-            <typeparam name="T1">The type of the first argument of the invoked method.</typeparam>
-            <typeparam name="T2">The type of the second argument of the invoked method.</typeparam>
-            <typeparam name="T3">The type of the third argument of the invoked method.</typeparam>
-            <typeparam name="T4">The type of the fourth argument of the invoked method.</typeparam>
-            <typeparam name="TException">Type of exception that will be calculated and thrown when the setup is matched.</typeparam>
-            <param name="exceptionFunction">The function that will calculate the exception to be thrown.</param>
-            <example>
-            <para>
-            The thrown exception is calculated from the value of the actual method invocation arguments. 
-            Notice how the arguments are retrieved by simply declaring them as part of the lambda 
-            expression:
-            </para>
-            <code>
-            mock.Setup(x => x.Execute(
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;()))
-                .Throws((string arg1, string arg2, string arg3, string arg4) => new Exception(arg1 + arg2 + arg3 + arg4));
-            </code>
-            </example>
-        </member>
-        <member name="M:Moq.Language.IThrows.Throws``6(System.Func{``0,``1,``2,``3,``4,``5})">
-            <summary>
-            Specifies a function that will calculate the exception to throw when the method is invoked, 
-            retrieving the arguments for the invocation.
-            </summary>
-            <typeparam name="T1">The type of the first argument of the invoked method.</typeparam>
-            <typeparam name="T2">The type of the second argument of the invoked method.</typeparam>
-            <typeparam name="T3">The type of the third argument of the invoked method.</typeparam>
-            <typeparam name="T4">The type of the fourth argument of the invoked method.</typeparam>
-            <typeparam name="T5">The type of the fifth argument of the invoked method.</typeparam>
-            <typeparam name="TException">Type of exception that will be calculated and thrown when the setup is matched.</typeparam>
-            <param name="exceptionFunction">The function that will calculate the exception to be thrown.</param>
-            <example>
-            <para>
-            The thrown exception is calculated from the value of the actual method invocation arguments. 
-            Notice how the arguments are retrieved by simply declaring them as part of the lambda 
-            expression:
-            </para>
-            <code>
-            mock.Setup(x => x.Execute(
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;()))
-                .Throws((string arg1, string arg2, string arg3, string arg4, string arg5) => new Exception(arg1 + arg2 + arg3 + arg4 + arg5));
-            </code>
-            </example>
-        </member>
-        <member name="M:Moq.Language.IThrows.Throws``7(System.Func{``0,``1,``2,``3,``4,``5,``6})">
-            <summary>
-            Specifies a function that will calculate the exception to throw when the method is invoked, 
-            retrieving the arguments for the invocation.
-            </summary>
-            <typeparam name="T1">The type of the first argument of the invoked method.</typeparam>
-            <typeparam name="T2">The type of the second argument of the invoked method.</typeparam>
-            <typeparam name="T3">The type of the third argument of the invoked method.</typeparam>
-            <typeparam name="T4">The type of the fourth argument of the invoked method.</typeparam>
-            <typeparam name="T5">The type of the fifth argument of the invoked method.</typeparam>
-            <typeparam name="T6">The type of the sixth argument of the invoked method.</typeparam>
-            <typeparam name="TException">Type of exception that will be calculated and thrown when the setup is matched.</typeparam>
-            <param name="exceptionFunction">The function that will calculate the exception to be thrown.</param>
-            <example>
-            <para>
-            The thrown exception is calculated from the value of the actual method invocation arguments. 
-            Notice how the arguments are retrieved by simply declaring them as part of the lambda 
-            expression:
-            </para>
-            <code>
-            mock.Setup(x => x.Execute(
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;()))
-                .Throws((string arg1, string arg2, string arg3, string arg4, string arg5, string arg6) => new Exception(arg1 + arg2 + arg3 + arg4 + arg5 + arg6));
-            </code>
-            </example>
-        </member>
-        <member name="M:Moq.Language.IThrows.Throws``8(System.Func{``0,``1,``2,``3,``4,``5,``6,``7})">
-            <summary>
-            Specifies a function that will calculate the exception to throw when the method is invoked, 
-            retrieving the arguments for the invocation.
-            </summary>
-            <typeparam name="T1">The type of the first argument of the invoked method.</typeparam>
-            <typeparam name="T2">The type of the second argument of the invoked method.</typeparam>
-            <typeparam name="T3">The type of the third argument of the invoked method.</typeparam>
-            <typeparam name="T4">The type of the fourth argument of the invoked method.</typeparam>
-            <typeparam name="T5">The type of the fifth argument of the invoked method.</typeparam>
-            <typeparam name="T6">The type of the sixth argument of the invoked method.</typeparam>
-            <typeparam name="T7">The type of the seventh argument of the invoked method.</typeparam>
-            <typeparam name="TException">Type of exception that will be calculated and thrown when the setup is matched.</typeparam>
-            <param name="exceptionFunction">The function that will calculate the exception to be thrown.</param>
-            <example>
-            <para>
-            The thrown exception is calculated from the value of the actual method invocation arguments. 
-            Notice how the arguments are retrieved by simply declaring them as part of the lambda 
-            expression:
-            </para>
-            <code>
-            mock.Setup(x => x.Execute(
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;()))
-                .Throws((string arg1, string arg2, string arg3, string arg4, string arg5, string arg6, string arg7) => new Exception(arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7));
-            </code>
-            </example>
-        </member>
-        <member name="M:Moq.Language.IThrows.Throws``9(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8})">
-            <summary>
-            Specifies a function that will calculate the exception to throw when the method is invoked, 
-            retrieving the arguments for the invocation.
-            </summary>
-            <typeparam name="T1">The type of the first argument of the invoked method.</typeparam>
-            <typeparam name="T2">The type of the second argument of the invoked method.</typeparam>
-            <typeparam name="T3">The type of the third argument of the invoked method.</typeparam>
-            <typeparam name="T4">The type of the fourth argument of the invoked method.</typeparam>
-            <typeparam name="T5">The type of the fifth argument of the invoked method.</typeparam>
-            <typeparam name="T6">The type of the sixth argument of the invoked method.</typeparam>
-            <typeparam name="T7">The type of the seventh argument of the invoked method.</typeparam>
-            <typeparam name="T8">The type of the eighth argument of the invoked method.</typeparam>
-            <typeparam name="TException">Type of exception that will be calculated and thrown when the setup is matched.</typeparam>
-            <param name="exceptionFunction">The function that will calculate the exception to be thrown.</param>
-            <example>
-            <para>
-            The thrown exception is calculated from the value of the actual method invocation arguments. 
-            Notice how the arguments are retrieved by simply declaring them as part of the lambda 
-            expression:
-            </para>
-            <code>
-            mock.Setup(x => x.Execute(
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;()))
-                .Throws((string arg1, string arg2, string arg3, string arg4, string arg5, string arg6, string arg7, string arg8) => new Exception(arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8));
-            </code>
-            </example>
-        </member>
-        <member name="M:Moq.Language.IThrows.Throws``10(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9})">
-            <summary>
-            Specifies a function that will calculate the exception to throw when the method is invoked, 
-            retrieving the arguments for the invocation.
-            </summary>
-            <typeparam name="T1">The type of the first argument of the invoked method.</typeparam>
-            <typeparam name="T2">The type of the second argument of the invoked method.</typeparam>
-            <typeparam name="T3">The type of the third argument of the invoked method.</typeparam>
-            <typeparam name="T4">The type of the fourth argument of the invoked method.</typeparam>
-            <typeparam name="T5">The type of the fifth argument of the invoked method.</typeparam>
-            <typeparam name="T6">The type of the sixth argument of the invoked method.</typeparam>
-            <typeparam name="T7">The type of the seventh argument of the invoked method.</typeparam>
-            <typeparam name="T8">The type of the eighth argument of the invoked method.</typeparam>
-            <typeparam name="T9">The type of the ninth argument of the invoked method.</typeparam>
-            <typeparam name="TException">Type of exception that will be calculated and thrown when the setup is matched.</typeparam>
-            <param name="exceptionFunction">The function that will calculate the exception to be thrown.</param>
-            <example>
-            <para>
-            The thrown exception is calculated from the value of the actual method invocation arguments. 
-            Notice how the arguments are retrieved by simply declaring them as part of the lambda 
-            expression:
-            </para>
-            <code>
-            mock.Setup(x => x.Execute(
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;()))
-                .Throws((string arg1, string arg2, string arg3, string arg4, string arg5, string arg6, string arg7, string arg8, string arg9) => new Exception(arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8 + arg9));
-            </code>
-            </example>
-        </member>
-        <member name="M:Moq.Language.IThrows.Throws``11(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10})">
-            <summary>
-            Specifies a function that will calculate the exception to throw when the method is invoked, 
-            retrieving the arguments for the invocation.
-            </summary>
-            <typeparam name="T1">The type of the first argument of the invoked method.</typeparam>
-            <typeparam name="T2">The type of the second argument of the invoked method.</typeparam>
-            <typeparam name="T3">The type of the third argument of the invoked method.</typeparam>
-            <typeparam name="T4">The type of the fourth argument of the invoked method.</typeparam>
-            <typeparam name="T5">The type of the fifth argument of the invoked method.</typeparam>
-            <typeparam name="T6">The type of the sixth argument of the invoked method.</typeparam>
-            <typeparam name="T7">The type of the seventh argument of the invoked method.</typeparam>
-            <typeparam name="T8">The type of the eighth argument of the invoked method.</typeparam>
-            <typeparam name="T9">The type of the ninth argument of the invoked method.</typeparam>
-            <typeparam name="T10">The type of the tenth argument of the invoked method.</typeparam>
-            <typeparam name="TException">Type of exception that will be calculated and thrown when the setup is matched.</typeparam>
-            <param name="exceptionFunction">The function that will calculate the exception to be thrown.</param>
-            <example>
-            <para>
-            The thrown exception is calculated from the value of the actual method invocation arguments. 
-            Notice how the arguments are retrieved by simply declaring them as part of the lambda 
-            expression:
-            </para>
-            <code>
-            mock.Setup(x => x.Execute(
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;()))
-                .Throws((string arg1, string arg2, string arg3, string arg4, string arg5, string arg6, string arg7, string arg8, string arg9, string arg10) => new Exception(arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8 + arg9 + arg10));
-            </code>
-            </example>
-        </member>
-        <member name="M:Moq.Language.IThrows.Throws``12(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11})">
-            <summary>
-            Specifies a function that will calculate the exception to throw when the method is invoked, 
-            retrieving the arguments for the invocation.
-            </summary>
-            <typeparam name="T1">The type of the first argument of the invoked method.</typeparam>
-            <typeparam name="T2">The type of the second argument of the invoked method.</typeparam>
-            <typeparam name="T3">The type of the third argument of the invoked method.</typeparam>
-            <typeparam name="T4">The type of the fourth argument of the invoked method.</typeparam>
-            <typeparam name="T5">The type of the fifth argument of the invoked method.</typeparam>
-            <typeparam name="T6">The type of the sixth argument of the invoked method.</typeparam>
-            <typeparam name="T7">The type of the seventh argument of the invoked method.</typeparam>
-            <typeparam name="T8">The type of the eighth argument of the invoked method.</typeparam>
-            <typeparam name="T9">The type of the ninth argument of the invoked method.</typeparam>
-            <typeparam name="T10">The type of the tenth argument of the invoked method.</typeparam>
-            <typeparam name="T11">The type of the eleventh argument of the invoked method.</typeparam>
-            <typeparam name="TException">Type of exception that will be calculated and thrown when the setup is matched.</typeparam>
-            <param name="exceptionFunction">The function that will calculate the exception to be thrown.</param>
-            <example>
-            <para>
-            The thrown exception is calculated from the value of the actual method invocation arguments. 
-            Notice how the arguments are retrieved by simply declaring them as part of the lambda 
-            expression:
-            </para>
-            <code>
-            mock.Setup(x => x.Execute(
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;()))
-                .Throws((string arg1, string arg2, string arg3, string arg4, string arg5, string arg6, string arg7, string arg8, string arg9, string arg10, string arg11) => new Exception(arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8 + arg9 + arg10 + arg11));
-            </code>
-            </example>
-        </member>
-        <member name="M:Moq.Language.IThrows.Throws``13(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12})">
-            <summary>
-            Specifies a function that will calculate the exception to throw when the method is invoked, 
-            retrieving the arguments for the invocation.
-            </summary>
-            <typeparam name="T1">The type of the first argument of the invoked method.</typeparam>
-            <typeparam name="T2">The type of the second argument of the invoked method.</typeparam>
-            <typeparam name="T3">The type of the third argument of the invoked method.</typeparam>
-            <typeparam name="T4">The type of the fourth argument of the invoked method.</typeparam>
-            <typeparam name="T5">The type of the fifth argument of the invoked method.</typeparam>
-            <typeparam name="T6">The type of the sixth argument of the invoked method.</typeparam>
-            <typeparam name="T7">The type of the seventh argument of the invoked method.</typeparam>
-            <typeparam name="T8">The type of the eighth argument of the invoked method.</typeparam>
-            <typeparam name="T9">The type of the ninth argument of the invoked method.</typeparam>
-            <typeparam name="T10">The type of the tenth argument of the invoked method.</typeparam>
-            <typeparam name="T11">The type of the eleventh argument of the invoked method.</typeparam>
-            <typeparam name="T12">The type of the twelfth argument of the invoked method.</typeparam>
-            <typeparam name="TException">Type of exception that will be calculated and thrown when the setup is matched.</typeparam>
-            <param name="exceptionFunction">The function that will calculate the exception to be thrown.</param>
-            <example>
-            <para>
-            The thrown exception is calculated from the value of the actual method invocation arguments. 
-            Notice how the arguments are retrieved by simply declaring them as part of the lambda 
-            expression:
-            </para>
-            <code>
-            mock.Setup(x => x.Execute(
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;()))
-                .Throws((string arg1, string arg2, string arg3, string arg4, string arg5, string arg6, string arg7, string arg8, string arg9, string arg10, string arg11, string arg12) => new Exception(arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8 + arg9 + arg10 + arg11 + arg12));
-            </code>
-            </example>
-        </member>
-        <member name="M:Moq.Language.IThrows.Throws``14(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13})">
-            <summary>
-            Specifies a function that will calculate the exception to throw when the method is invoked, 
-            retrieving the arguments for the invocation.
-            </summary>
-            <typeparam name="T1">The type of the first argument of the invoked method.</typeparam>
-            <typeparam name="T2">The type of the second argument of the invoked method.</typeparam>
-            <typeparam name="T3">The type of the third argument of the invoked method.</typeparam>
-            <typeparam name="T4">The type of the fourth argument of the invoked method.</typeparam>
-            <typeparam name="T5">The type of the fifth argument of the invoked method.</typeparam>
-            <typeparam name="T6">The type of the sixth argument of the invoked method.</typeparam>
-            <typeparam name="T7">The type of the seventh argument of the invoked method.</typeparam>
-            <typeparam name="T8">The type of the eighth argument of the invoked method.</typeparam>
-            <typeparam name="T9">The type of the ninth argument of the invoked method.</typeparam>
-            <typeparam name="T10">The type of the tenth argument of the invoked method.</typeparam>
-            <typeparam name="T11">The type of the eleventh argument of the invoked method.</typeparam>
-            <typeparam name="T12">The type of the twelfth argument of the invoked method.</typeparam>
-            <typeparam name="T13">The type of the thirteenth argument of the invoked method.</typeparam>
-            <typeparam name="TException">Type of exception that will be calculated and thrown when the setup is matched.</typeparam>
-            <param name="exceptionFunction">The function that will calculate the exception to be thrown.</param>
-            <example>
-            <para>
-            The thrown exception is calculated from the value of the actual method invocation arguments. 
-            Notice how the arguments are retrieved by simply declaring them as part of the lambda 
-            expression:
-            </para>
-            <code>
-            mock.Setup(x => x.Execute(
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;()))
-                .Throws((string arg1, string arg2, string arg3, string arg4, string arg5, string arg6, string arg7, string arg8, string arg9, string arg10, string arg11, string arg12, string arg13) => new Exception(arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8 + arg9 + arg10 + arg11 + arg12 + arg13));
-            </code>
-            </example>
-        </member>
-        <member name="M:Moq.Language.IThrows.Throws``15(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14})">
-            <summary>
-            Specifies a function that will calculate the exception to throw when the method is invoked, 
-            retrieving the arguments for the invocation.
-            </summary>
-            <typeparam name="T1">The type of the first argument of the invoked method.</typeparam>
-            <typeparam name="T2">The type of the second argument of the invoked method.</typeparam>
-            <typeparam name="T3">The type of the third argument of the invoked method.</typeparam>
-            <typeparam name="T4">The type of the fourth argument of the invoked method.</typeparam>
-            <typeparam name="T5">The type of the fifth argument of the invoked method.</typeparam>
-            <typeparam name="T6">The type of the sixth argument of the invoked method.</typeparam>
-            <typeparam name="T7">The type of the seventh argument of the invoked method.</typeparam>
-            <typeparam name="T8">The type of the eighth argument of the invoked method.</typeparam>
-            <typeparam name="T9">The type of the ninth argument of the invoked method.</typeparam>
-            <typeparam name="T10">The type of the tenth argument of the invoked method.</typeparam>
-            <typeparam name="T11">The type of the eleventh argument of the invoked method.</typeparam>
-            <typeparam name="T12">The type of the twelfth argument of the invoked method.</typeparam>
-            <typeparam name="T13">The type of the thirteenth argument of the invoked method.</typeparam>
-            <typeparam name="T14">The type of the fourteenth argument of the invoked method.</typeparam>
-            <typeparam name="TException">Type of exception that will be calculated and thrown when the setup is matched.</typeparam>
-            <param name="exceptionFunction">The function that will calculate the exception to be thrown.</param>
-            <example>
-            <para>
-            The thrown exception is calculated from the value of the actual method invocation arguments. 
-            Notice how the arguments are retrieved by simply declaring them as part of the lambda 
-            expression:
-            </para>
-            <code>
-            mock.Setup(x => x.Execute(
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;()))
-                .Throws((string arg1, string arg2, string arg3, string arg4, string arg5, string arg6, string arg7, string arg8, string arg9, string arg10, string arg11, string arg12, string arg13, string arg14) => new Exception(arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8 + arg9 + arg10 + arg11 + arg12 + arg13 + arg14));
-            </code>
-            </example>
-        </member>
-        <member name="M:Moq.Language.IThrows.Throws``16(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15})">
-            <summary>
-            Specifies a function that will calculate the exception to throw when the method is invoked, 
-            retrieving the arguments for the invocation.
-            </summary>
-            <typeparam name="T1">The type of the first argument of the invoked method.</typeparam>
-            <typeparam name="T2">The type of the second argument of the invoked method.</typeparam>
-            <typeparam name="T3">The type of the third argument of the invoked method.</typeparam>
-            <typeparam name="T4">The type of the fourth argument of the invoked method.</typeparam>
-            <typeparam name="T5">The type of the fifth argument of the invoked method.</typeparam>
-            <typeparam name="T6">The type of the sixth argument of the invoked method.</typeparam>
-            <typeparam name="T7">The type of the seventh argument of the invoked method.</typeparam>
-            <typeparam name="T8">The type of the eighth argument of the invoked method.</typeparam>
-            <typeparam name="T9">The type of the ninth argument of the invoked method.</typeparam>
-            <typeparam name="T10">The type of the tenth argument of the invoked method.</typeparam>
-            <typeparam name="T11">The type of the eleventh argument of the invoked method.</typeparam>
-            <typeparam name="T12">The type of the twelfth argument of the invoked method.</typeparam>
-            <typeparam name="T13">The type of the thirteenth argument of the invoked method.</typeparam>
-            <typeparam name="T14">The type of the fourteenth argument of the invoked method.</typeparam>
-            <typeparam name="T15">The type of the fifteenth argument of the invoked method.</typeparam>
-            <typeparam name="TException">Type of exception that will be calculated and thrown when the setup is matched.</typeparam>
-            <param name="exceptionFunction">The function that will calculate the exception to be thrown.</param>
-            <example>
-            <para>
-            The thrown exception is calculated from the value of the actual method invocation arguments. 
-            Notice how the arguments are retrieved by simply declaring them as part of the lambda 
-            expression:
-            </para>
-            <code>
-            mock.Setup(x => x.Execute(
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;()))
-                .Throws((string arg1, string arg2, string arg3, string arg4, string arg5, string arg6, string arg7, string arg8, string arg9, string arg10, string arg11, string arg12, string arg13, string arg14, string arg15) => new Exception(arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8 + arg9 + arg10 + arg11 + arg12 + arg13 + arg14 + arg15));
-            </code>
-            </example>
-        </member>
-        <member name="M:Moq.Language.IThrows.Throws``17(System.Func{``0,``1,``2,``3,``4,``5,``6,``7,``8,``9,``10,``11,``12,``13,``14,``15,``16})">
-            <summary>
-            Specifies a function that will calculate the exception to throw when the method is invoked, 
-            retrieving the arguments for the invocation.
-            </summary>
-            <typeparam name="T1">The type of the first argument of the invoked method.</typeparam>
-            <typeparam name="T2">The type of the second argument of the invoked method.</typeparam>
-            <typeparam name="T3">The type of the third argument of the invoked method.</typeparam>
-            <typeparam name="T4">The type of the fourth argument of the invoked method.</typeparam>
-            <typeparam name="T5">The type of the fifth argument of the invoked method.</typeparam>
-            <typeparam name="T6">The type of the sixth argument of the invoked method.</typeparam>
-            <typeparam name="T7">The type of the seventh argument of the invoked method.</typeparam>
-            <typeparam name="T8">The type of the eighth argument of the invoked method.</typeparam>
-            <typeparam name="T9">The type of the ninth argument of the invoked method.</typeparam>
-            <typeparam name="T10">The type of the tenth argument of the invoked method.</typeparam>
-            <typeparam name="T11">The type of the eleventh argument of the invoked method.</typeparam>
-            <typeparam name="T12">The type of the twelfth argument of the invoked method.</typeparam>
-            <typeparam name="T13">The type of the thirteenth argument of the invoked method.</typeparam>
-            <typeparam name="T14">The type of the fourteenth argument of the invoked method.</typeparam>
-            <typeparam name="T15">The type of the fifteenth argument of the invoked method.</typeparam>
-            <typeparam name="T16">The type of the sixteenth argument of the invoked method.</typeparam>
-            <typeparam name="TException">Type of exception that will be calculated and thrown when the setup is matched.</typeparam>
-            <param name="exceptionFunction">The function that will calculate the exception to be thrown.</param>
-            <example>
-            <para>
-            The thrown exception is calculated from the value of the actual method invocation arguments. 
-            Notice how the arguments are retrieved by simply declaring them as part of the lambda 
-            expression:
-            </para>
-            <code>
-            mock.Setup(x => x.Execute(
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;(), 
-                                 It.IsAny&lt;string&gt;()))
-                .Throws((string arg1, string arg2, string arg3, string arg4, string arg5, string arg6, string arg7, string arg8, string arg9, string arg10, string arg11, string arg12, string arg13, string arg14, string arg15, string arg16) => new Exception(arg1 + arg2 + arg3 + arg4 + arg5 + arg6 + arg7 + arg8 + arg9 + arg10 + arg11 + arg12 + arg13 + arg14 + arg15 + arg16));
             </code>
             </example>
         </member>
@@ -5034,22 +4378,6 @@
             and fail with any other call.
             </summary>
         </member>
-        <member name="T:Moq.MethodExpectation">
-            <summary>
-              An <see cref="T:Moq.Expectation"/> that is bound to a single, specific method.
-              <para>
-                <see cref="P:Moq.MethodExpectation.Expression"/> has the general form
-                <c>`mock => mock.Method(...arguments)`</c>. Because the method and arguments are frequently needed,
-                they are cached in <see cref="F:Moq.MethodExpectation.Method"/> and <see cref="F:Moq.MethodExpectation.Arguments"/>
-                for faster access.
-              </para>
-            </summary>
-        </member>
-        <member name="T:Moq.MethodSetup">
-            <summary>
-              Abstract base class for setups that target a single, specific method.
-            </summary>
-        </member>
         <member name="T:Moq.MockBehavior">
             <summary>
             Options to customize the behavior of the mock. 
@@ -5447,7 +4775,7 @@
               Specifies a setup on the mocked type for a call to a property setter.
             </summary>
             <param name="setterExpression">The Lambda expression that sets a property to a value.</param>
-            <typeparam name="TProperty">Type of the property.</typeparam>
+            <typeparam name="TProperty">Type of the property. Typically omitted as it can be inferred from the expression.</typeparam>
             <remarks>
               If more than one setup is set for the same property setter,
               the latest one wins and is the one that will be executed.
@@ -7061,11 +6389,6 @@
               Looks up a localized string similar to Type {0} does not have a default (public parameterless) constructor..
             </summary>
         </member>
-        <member name="P:Moq.Properties.Resources.TypeMatchersMayNotBeUsedWithCallbacks">
-            <summary>
-              Looks up a localized string similar to Type matchers may not be used as the type for &apos;Callback&apos; or &apos;Returns&apos; parameters, because no argument will never have that precise type. Consider using type &apos;object&apos; instead..
-            </summary>
-        </member>
         <member name="P:Moq.Properties.Resources.TypeNotImplementInterface">
             <summary>
               Looks up a localized string similar to Type {0} does not implement required interface {1}.
@@ -7195,40 +6518,6 @@
             <param name="expression">Lambda expression that specifies the expected method invocation.</param>
             <seealso cref="M:Moq.Mock`1.Setup``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})"/>
         </member>
-        <member name="M:Moq.Protected.IProtectedAsMock`2.SetupSet``1(System.Action{`1})">
-            <summary>
-              Specifies a setup on the mocked type for a call to a property setter.
-            </summary>
-            <param name="setterExpression">The Lambda expression that sets a property to a value.</param>
-            <typeparam name="TProperty">Type of the property.</typeparam>
-            <remarks>
-              If more than one setup is set for the same property setter,
-              the latest one wins and is the one that will be executed.
-              <para>
-                This overloads allows the use of a callback already typed for the property type.
-              </para>
-            </remarks>
-            <example group="setups">
-              <code>
-                mock.SetupSet&lt;bool&gt;(x => x.Suspended = true);
-              </code>
-            </example>
-        </member>
-        <member name="M:Moq.Protected.IProtectedAsMock`2.SetupSet(System.Action{`1})">
-            <summary>
-              Specifies a setup on the mocked type for a call to a property setter.
-            </summary>
-            <param name="setterExpression">Lambda expression that sets a property to a value.</param>
-            <remarks>
-              If more than one setup is set for the same property setter,
-              the latest one wins and is the one that will be executed.
-            </remarks>
-            <example group="setups">
-              <code>
-                mock.SetupSet(x => x.Suspended = true);
-              </code>
-            </example>
-        </member>
         <member name="M:Moq.Protected.IProtectedAsMock`2.SetupGet``1(System.Linq.Expressions.Expression{System.Func{`1,``0}})">
             <summary>
             Specifies a setup on the mocked type for a call to a property getter.
@@ -7285,20 +6574,6 @@
             </param>
             <param name="failMessage">Message to include in the thrown <see cref="T:Moq.MockException"/> if verification fails.</param>
             <exception cref="T:Moq.MockException">The specified invocation did not occur (or did not occur the specified number of times).</exception>
-        </member>
-        <member name="M:Moq.Protected.IProtectedAsMock`2.VerifySet(System.Action{`1},System.Nullable{Moq.Times},System.String)">
-            <summary>
-              Verifies that a property was set on the mock.
-            </summary>
-            <param name="setterExpression">Expression to verify.</param>
-            <param name="times">
-            Number of times that the setter is expected to have occurred.
-            If omitted, assumed to be <see cref="M:Moq.Times.AtLeastOnce"/>.
-            </param>
-            <param name="failMessage">Message to show if verification fails.</param>
-            <exception cref="T:Moq.MockException">
-              The invocation was not called the number of times specified by <paramref name="times"/>.
-            </exception>
         </member>
         <member name="M:Moq.Protected.IProtectedAsMock`2.VerifyGet``1(System.Linq.Expressions.Expression{System.Func{`1,``0}},System.Nullable{Moq.Times},System.String)">
             <summary>
@@ -7762,6 +7037,44 @@
             <typeparam name="T">Mocked object type. Typically omitted as it can be inferred from the mock instance.</typeparam>
             <param name="mock">The mock to set the protected setups on.</param>
         </member>
+        <member name="T:Moq.CastleProxyFactory">
+            <summary>
+            An implementation of <see cref="T:Moq.ProxyFactory"/> that is based on Castle DynamicProxy.
+            </summary>
+        </member>
+        <member name="M:Moq.CastleProxyFactory.CreateProxy(System.Type,Moq.IInterceptor,System.Type[],System.Object[])">
+            <inheritdoc />
+        </member>
+        <member name="T:Moq.CastleProxyFactory.IncludeObjectMethodsHook">
+            <summary>
+            This hook tells Castle DynamicProxy to proxy the default methods it suggests,
+            plus some of the methods defined by <see cref="T:System.Object"/>, e.g. so we can intercept
+            <see cref="M:System.Object.ToString"/> and give mocks useful default names.
+            </summary>
+        </member>
+        <member name="T:Moq.Internals.InterfaceProxy">
+            <summary>Do not use. (Moq requires this class so that <see langword="object"/> methods can be set up on interface mocks.)</summary>
+        </member>
+        <member name="M:Moq.Internals.InterfaceProxy.Equals(System.Object)">
+            <summary/>
+        </member>
+        <member name="M:Moq.Internals.InterfaceProxy.GetHashCode">
+            <summary/>
+        </member>
+        <member name="M:Moq.Internals.InterfaceProxy.ToString">
+            <summary/>
+        </member>
+        <member name="T:Moq.Internals.IProxy">
+            <summary>Do not use. (Moq requires this interface so that <see langword="object"/> methods can be set up on interface mocks.)</summary>
+        </member>
+        <member name="P:Moq.Internals.IProxy.Interceptor">
+            <summary/>
+        </member>
+        <member name="P:Moq.ProxyFactory.Instance">
+            <summary>
+            Gets the global <see cref="T:Moq.ProxyFactory"/> instance used by Moq.
+            </summary>
+        </member>
         <member name="T:Moq.Range">
             <summary>
             Kind of range to use in a filter specified through 
@@ -8137,6 +7450,12 @@
               Programmable setup used by <see cref="M:Moq.Mock.SetupSequence(Moq.Mock,System.Linq.Expressions.LambdaExpression)"/>.
             </summary>
         </member>
+        <member name="M:Moq.Setup.TryGetReturnValue(System.Object@)">
+            <summary>
+              Attempts to get this setup's return value without invoking user code
+              (which could have side effects beyond Moq's understanding and control).
+            </summary>
+        </member>
         <member name="M:Moq.Setup.Verify(System.Boolean,System.Func{Moq.ISetup,System.Boolean},System.Collections.Generic.HashSet{Moq.Mock})">
             <summary>
               Verifies this setup and those of its inner mock (if present and known).
@@ -8153,6 +7472,16 @@
             <exception cref="T:Moq.MockException">
               This setup or any of its inner mock (if present and known) failed verification.
             </exception>
+        </member>
+        <member name="T:Moq.StubbedPropertyGetterSetup">
+            <summary>
+              Setup used by <see cref="M:Moq.Mock.SetupAllProperties(Moq.Mock)"/> for property getters.
+            </summary>
+        </member>
+        <member name="T:Moq.StubbedPropertySetterSetup">
+            <summary>
+              Setup used by <see cref="M:Moq.Mock.SetupAllProperties(Moq.Mock)"/> for property setters.
+            </summary>
         </member>
         <member name="T:Moq.Switches">
             <summary>

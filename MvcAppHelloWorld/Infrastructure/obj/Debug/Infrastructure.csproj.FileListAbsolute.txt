@@ -48,3 +48,11 @@ D:\GitProjects\MVCHelloWorld\MvcAppHelloWorld\Infrastructure\obj\Debug\Infrastru
 D:\GitProjects\MVCHelloWorld\MvcAppHelloWorld\Infrastructure\obj\Debug\Infrastructure.csproj.CopyComplete
 D:\GitProjects\MVCHelloWorld\MvcAppHelloWorld\Infrastructure\obj\Debug\Infrastructure.dll
 D:\GitProjects\MVCHelloWorld\MvcAppHelloWorld\Infrastructure\obj\Debug\Infrastructure.pdb
+D:\GitProjects\MVCHelloWorld\MvcAppHelloWorld\Infrastructure\bin\Debug\Castle.Core.dll
+D:\GitProjects\MVCHelloWorld\MvcAppHelloWorld\Infrastructure\bin\Debug\Moq.dll
+D:\GitProjects\MVCHelloWorld\MvcAppHelloWorld\Infrastructure\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\GitProjects\MVCHelloWorld\MvcAppHelloWorld\Infrastructure\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\GitProjects\MVCHelloWorld\MvcAppHelloWorld\Infrastructure\bin\Debug\Castle.Core.xml
+D:\GitProjects\MVCHelloWorld\MvcAppHelloWorld\Infrastructure\bin\Debug\Moq.xml
+D:\GitProjects\MVCHelloWorld\MvcAppHelloWorld\Infrastructure\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\GitProjects\MVCHelloWorld\MvcAppHelloWorld\Infrastructure\bin\Debug\System.Threading.Tasks.Extensions.xml

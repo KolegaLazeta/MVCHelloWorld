@@ -5,7 +5,7 @@ namespace BusinessLayer
 {
     public class HighSchoolService : GenericService<HighSchool>
     {
-        public HighSchoolService(IGenericRepository<HighSchool> studentsRepository) : base(studentsRepository)
+        public HighSchoolService(IGenericRepository<HighSchool> highSchoolRepository) : base(highSchoolRepository)
         {
             
         }

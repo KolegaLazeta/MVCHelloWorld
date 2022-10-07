@@ -11,13 +11,12 @@ namespace DataAccess
 
         public GenericRepository()
         {
-            this._context = new TuxContext();
+            _context = new TuxContext();
             table = _context.Set<T>();
         }
 
         public virtual List<T> GetList()
         {
-            
             return table.ToList();
         }
         public T GetByID(int id)

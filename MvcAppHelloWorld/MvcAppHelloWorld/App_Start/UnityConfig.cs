@@ -16,23 +16,43 @@ namespace MvcAppHelloWorld
 
             // register all your components with the container here
             // it is NOT necessary to register your controllers
+
+            //IGenericRepository - Repository
             container.RegisterType<IGenericRepository<HighSchool>, HighSchoolRepository>();
             container.RegisterType<IGenericRepository<College>, CollegeRepository>();
             container.RegisterType<IGenericRepository<Role>, RolesRepository>();
             container.RegisterType<IGenericRepository<Professor>, ProfesssorRepository>();
             container.RegisterType<IGenericRepository<Users>, UserRepository>();
 
+            //IGenericRepository - QueryRepository
+            container.RegisterType<IGenericRepository<HighSchoolStudentsQueryModel>, HighSchoolStudentsQueryRepository>();
+            container.RegisterType<IGenericRepository<ProfessorQueryModel>, ProfessorQueryRepository>();
+            container.RegisterType<IGenericRepository<CollegeStudentsQueryModel>, CollegeStudentsQueryRepository>();
+            
+            //GenericService
             container.RegisterType<IGenericService<HighSchool>, HighSchoolService>();
             container.RegisterType<IGenericService<College>, CollegeService>();
             container.RegisterType<IGenericService<Role>, RolesService>();
             container.RegisterType<IGenericService<Professor>, ProfessorService>();
             container.RegisterType<IGenericService<Users>, UserService>();
 
+            //IGenericRepository - GenericService<Query Type>
+            container.RegisterType<IGenericService<ProfessorQueryModel>, GenericService<ProfessorQueryModel>>();
+            container.RegisterType<IGenericService<HighSchoolStudentsQueryModel>, GenericService<HighSchoolStudentsQueryModel>>();
+            container.RegisterType<IGenericService<CollegeStudentsQueryModel>, GenericService<CollegeStudentsQueryModel>>();
+
+            //IGenericAppService - AppService
             container.RegisterType<IGenericAppService<UsersViewModel, Users>, UserAppService>();
             container.RegisterType<IGenericAppService<HighSchoolViewModel, HighSchool>, HighSchoolAppService>();
             container.RegisterType<IGenericAppService<CollegeViewModel, College>, CollegeAppService>();
             container.RegisterType<IGenericAppService<RoleViewModel, Role>, RoleAppService>();
             container.RegisterType<IGenericAppService<ProfessorViewModel, Professor>, ProfessorAppService>();
+
+            //IGenericAppService - GenericAppservice<ViewModelType, Querytype>
+            container.RegisterType<IGenericAppService<HighSchoolViewModel, HighSchoolStudentsQueryModel>, GenericAppService<HighSchoolViewModel, HighSchoolStudentsQueryModel>>();
+            container.RegisterType<IGenericAppService<CollegeViewModel, CollegeStudentsQueryModel>, GenericAppService<CollegeViewModel, CollegeStudentsQueryModel>>();
+            container.RegisterType<IGenericAppService<ProfessorViewModel, ProfessorQueryModel>, GenericAppService<ProfessorViewModel, ProfessorQueryModel>>();
+
 
             // e.g. container.RegisterType<ITestService, TestService>();
 

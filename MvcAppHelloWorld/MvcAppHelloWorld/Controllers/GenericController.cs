@@ -1,6 +1,7 @@
 ﻿using BusinessLayer;
 using BusinessObjectModel;
 using MvcAppHelloWorld;
+using System.Data;
 using System.Web.Mvc;
 
 namespace Controllers
@@ -16,7 +17,7 @@ namespace Controllers
         }
 
         
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             var studentList = _service.GetList();
             return View("Index", studentList);
@@ -36,9 +37,14 @@ namespace Controllers
 
         public virtual ActionResult EditDetails(TViewModel obj)
         {
-            _service.EditDetails(obj);
-            _service.Save();
-            return View("Details", obj);
+            if(ModelState.IsValid)
+            {
+                _service.EditDetails(obj);
+                _service.Save();
+                return View("Details", obj);
+            }
+            return View(obj);
+
         }
 
         public ActionResult Create()
@@ -49,9 +55,13 @@ namespace Controllers
         [HttpPost]
         public virtual ActionResult Save (TViewModel obj)
         {
-            _service.Create(obj);
-            _service.Save();
-            return View("Details", obj);
+            if (ModelState.IsValid)
+            {
+                _service.Create(obj);
+                _service.Save();
+                return View("Details", obj);
+            }
+            return View(obj);
         }
 
         public ActionResult Delete(int id)
@@ -63,8 +73,8 @@ namespace Controllers
 
         public ActionResult Search(string searchString)
         {
-           var students = _service.Search(searchString);
-            return View("Index", students);
+           var content = _service.Search(searchString);
+            return View("Index", content);
         }
 
         public ActionResult Export(int id)

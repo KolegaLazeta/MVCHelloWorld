@@ -3,6 +3,7 @@ using BusinessObjectModel;
 using MvcAppHelloWorld;
 using System.Collections.Generic;
 using System.Linq;
+using DataAccess;
 using System.Web.Mvc;
 
 namespace Controllers
@@ -11,11 +12,22 @@ namespace Controllers
     public class CollegeStudentsController : GenericController<CollegeViewModel, College>
     {
         private readonly IGenericAppService<CollegeViewModel, College> _collegeService;
+        private readonly IGenericAppService<CollegeViewModel, CollegeStudentsQueryModel> _collegeQuery;
         private readonly IGenericAppService<RoleViewModel, Role> _roleService;
-        public CollegeStudentsController(IGenericAppService<CollegeViewModel, College> collegeService, IGenericAppService<RoleViewModel, Role> roleService) : base(collegeService)
+
+        public CollegeStudentsController(IGenericAppService<CollegeViewModel, College> collegeService, 
+            IGenericAppService<RoleViewModel, Role> roleService,
+            IGenericAppService<CollegeViewModel, CollegeStudentsQueryModel> collegeQuery) : base(collegeService)
         {
             _collegeService = collegeService;
             _roleService = roleService;
+            _collegeQuery = collegeQuery;
+        }
+
+        public override ActionResult Index()
+        {
+            var listOFCollegeStudents = _collegeQuery.GetList();
+            return View(listOFCollegeStudents);
         }
 
         public override ActionResult Save(CollegeViewModel college)

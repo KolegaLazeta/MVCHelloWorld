@@ -16,73 +16,55 @@ namespace DataAccess
 
         public TuxContext() : base("name=TuxDatabase")
         {
-
             Configuration.LazyLoadingEnabled = true;
         }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
+            //Mapping type entinty to table name from db
             modelBuilder.Entity<Users>().ToTable("Users");
             modelBuilder.Entity<Role>().ToTable("Role");
             modelBuilder.Entity<UserRole>().ToTable("UserRole");
 
-
+            //Mapping by Discriminator
             modelBuilder.Entity<Professor>()
                 .Map<Professor>(m => m.Requires("TypeOfUser").HasValue("Professor"));
-
             modelBuilder.Entity<HighSchool>()
                 .Map<HighSchool>(m => m.Requires("TypeOfUser").HasValue("HighSchool"));
-
             modelBuilder.Entity<College>()
                 .Map<College>(m => m.Requires("TypeOfUser").HasValue("College"));
-
             modelBuilder.Entity<Admin>()
                 .Map<Admin>(m => m.Requires("TypeOfUser").HasValue("Admin"));
 
+            //Defining Key
             modelBuilder.Entity<UserRole>()
                 .HasKey(c => new { c.UserId, c.RoleId });
-
             modelBuilder.Entity<Users>()
                 .HasKey(u => u.UserId);
-            
             modelBuilder.Entity<Role>()
                 .HasKey(u => u.RoleId);
 
+            //Defininig DatabaseGeneratedOption
             modelBuilder.Entity<Users>()
                 .Property(u => u.UserId)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-
             modelBuilder.Entity<Role>()
                 .Property(u => u.RoleId)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
+            //Definig many-to-many relationship
             modelBuilder.Entity<Users>()
                  .HasMany(c => c.UserRole)
                  .WithRequired()
                  .HasForeignKey(c => c.UserId)
-                 .WillCascadeOnDelete(true); ;
-
+                 .WillCascadeOnDelete(true);
             modelBuilder.Entity<Role>()
                  .HasMany(c => c.UserRole)
                  .WithRequired()
                  .HasForeignKey(c => c.RoleId)
                  .WillCascadeOnDelete(true);
 
-
-
-
             Database.SetInitializer<TuxContext>(null);
-
-            //// Many to many relationship
-            //modelBuilder.Entity<Users>()
-            //    .HasMany<Role>(s => s.Role)
-            //    .WithMany(c => c.Users)
-            //    .Map(cs =>
-            //    {
-            //        cs.MapLeftKey("UserRefId");
-            //        cs.MapRightKey("RoleRefId");
-            //        cs.ToTable("UserRole");
-            //    });
         }
     }
 }

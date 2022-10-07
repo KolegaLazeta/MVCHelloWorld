@@ -5,6 +5,7 @@ using System.Web.Security;
 using System.Collections.Generic;
 using System.Linq;
 using MvcAppHelloWorld;
+using DataAccess;
 
 namespace Controllers
 {
@@ -12,11 +13,21 @@ namespace Controllers
     public class HighSchoolStudentsController : GenericController<HighSchoolViewModel, HighSchool>
     {
         private readonly IGenericAppService<HighSchoolViewModel, HighSchool> _highSchoolService;
+        private readonly IGenericAppService<HighSchoolViewModel, HighSchoolStudentsQueryModel> _highSchoolQuery;
         private readonly IGenericAppService<RoleViewModel, Role> _roleAppService;
-        public HighSchoolStudentsController(IGenericAppService<HighSchoolViewModel, HighSchool> highSchoolService, IGenericAppService<RoleViewModel,Role> roleService) : base(highSchoolService)
+        public HighSchoolStudentsController(IGenericAppService<HighSchoolViewModel, HighSchool> highSchoolService,
+            IGenericAppService<RoleViewModel,Role> roleService,
+            IGenericAppService<HighSchoolViewModel, HighSchoolStudentsQueryModel> highSchoolQuery) : base(highSchoolService)
         {
             _highSchoolService = highSchoolService;
             _roleAppService = roleService;
+            _highSchoolQuery = highSchoolQuery;
+        }
+
+        public override ActionResult Index()
+        {
+            var listOfHighSchoolStudents = _highSchoolQuery.GetList();
+            return View(listOfHighSchoolStudents);
         }
 
         public override ActionResult Save(HighSchoolViewModel highSchool)
