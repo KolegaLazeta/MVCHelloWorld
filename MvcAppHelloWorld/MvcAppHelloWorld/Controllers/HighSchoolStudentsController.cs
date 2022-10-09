@@ -13,11 +13,12 @@ namespace Controllers
     public class HighSchoolStudentsController : GenericController<HighSchoolViewModel, HighSchool>
     {
         private readonly IGenericAppService<HighSchoolViewModel, HighSchool> _highSchoolService;
-        private readonly IGenericAppService<HighSchoolViewModel, HighSchoolStudentsQueryModel> _highSchoolQuery;
+        private readonly IGenericAppService<HighSchoolStudentsQueryViewModel, HighSchoolStudentsQueryModel> _highSchoolQuery;
         private readonly IGenericAppService<RoleViewModel, Role> _roleAppService;
+
         public HighSchoolStudentsController(IGenericAppService<HighSchoolViewModel, HighSchool> highSchoolService,
             IGenericAppService<RoleViewModel,Role> roleService,
-            IGenericAppService<HighSchoolViewModel, HighSchoolStudentsQueryModel> highSchoolQuery) : base(highSchoolService)
+            IGenericAppService<HighSchoolStudentsQueryViewModel, HighSchoolStudentsQueryModel> highSchoolQuery) : base(highSchoolService)
         {
             _highSchoolService = highSchoolService;
             _roleAppService = roleService;
@@ -27,9 +28,9 @@ namespace Controllers
         public override ActionResult Index()
         {
             var listOfHighSchoolStudents = _highSchoolQuery.GetList();
-            return View(listOfHighSchoolStudents);
+            return View("Index", listOfHighSchoolStudents);
         }
-
+        [Authorize(Roles = "Professor")]
         public override ActionResult Save(HighSchoolViewModel highSchool)
         {
             highSchool.UserRole = new List<UserRole>();
@@ -48,8 +49,6 @@ namespace Controllers
             return RedirectToAction("Index");
         }
 
-
-        // ne prikazuje podatke
         public override ActionResult Details(int id)
         {
             HighSchoolViewModel viewModel = _highSchoolService.GetByID(id);

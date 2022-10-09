@@ -9,16 +9,16 @@ using DataAccess;
 
 namespace Controllers
 {
-    [Authorize(Roles = "Admin,Professor")]
+    [Authorize(Roles = "Admin")]
     public class ProfessorController : GenericController<ProfessorViewModel, Professor>
     {
         private readonly IGenericAppService<ProfessorViewModel, Professor> _professorService;
+        private readonly IGenericAppService<ProfessorQueryViewModel, ProfessorQueryModel> _professorQueryService;
         private readonly IGenericAppService<RoleViewModel, Role> _roleService;
-        private readonly IGenericAppService<ProfessorViewModel, ProfessorQueryModel> _professorQueryService;
 
         public ProfessorController(IGenericAppService<ProfessorViewModel, Professor> professorService,
             IGenericAppService<RoleViewModel, Role> roleService, IMapper mapper,
-            IGenericAppService<ProfessorViewModel, ProfessorQueryModel> professorQueryService) : base(professorService)
+            IGenericAppService<ProfessorQueryViewModel, ProfessorQueryModel> professorQueryService) : base(professorService)
         {
             _professorService = professorService;
             _roleService = roleService;
@@ -33,7 +33,6 @@ namespace Controllers
             return View(list);
         }
 
-        [Authorize(Roles = "Admin")]
         public override ActionResult Save(ProfessorViewModel professor)
         {
             professor.UserRole = new List<UserRole>();

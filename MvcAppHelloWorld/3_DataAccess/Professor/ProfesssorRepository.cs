@@ -13,9 +13,9 @@ namespace DataAccess
         private TuxContext db = null;
         private readonly TuxContext _context;
 
-        public ProfesssorRepository(TuxContext context)
+        public ProfesssorRepository()
         {
-            _context = context;
+            this.db = new TuxContext();
         }
 
         public override IEnumerable<Professor> Search(string searchString)
@@ -95,13 +95,5 @@ namespace DataAccess
             db.UserRole.AddRange(professor.UserRole);
             db.SaveChanges();
         }
-        //public override void Delete(int id)
-        //{
-        //    var userRoles = db.UserRole.Where(ur => ur.UserId == id);
-        //    db.UserRole.RemoveRange(userRoles);
-        //    db.Users.Remove(GetByID(id));
-        //    db.SaveChanges();
-        //}
-
     }
 }

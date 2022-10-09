@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    public class ProfessorQueryModel : UserQueryModel
+    public class RoleQueryModel
     {
-        public string ClassSubject { get; set; }
-        public string Cabinet { get; set; }
+        public int RoleId { get; set; }
+        public string Name { get; set; }
     }
 }

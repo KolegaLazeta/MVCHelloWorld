@@ -11,16 +11,13 @@ namespace DataAccess
             {
 
                 var query = @"
-                        SELECT UserId, Name, LastName, Birthday_date, Cabinet, ClassSubject
+                        SELECT *
                         FROM Users
+                        INNER JOIN Role on Users.TypeOfUser = Role.Name
+                        INNER JOIN UserRole on Users.UserId = UserRole.UserId
                         Where Cabinet  IS NOT NULL and ClassSubject is not null
                         ";
                 var professorList = db.Database.SqlQuery<ProfessorQueryModel>(query).ToList();
-
-                foreach (var professor in professorList)
-                {
-                    professor.UserRoles = db.UserRole.Include("Role").Where(ur => ur.UserId == professor.UserId).ToList();
-                }
 
                 return professorList;
             }

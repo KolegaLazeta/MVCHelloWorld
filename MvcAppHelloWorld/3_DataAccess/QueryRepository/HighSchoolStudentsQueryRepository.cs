@@ -10,17 +10,13 @@ namespace DataAccess
             using (var db = new TuxContext())
             {
                 var query = @"
-                        SELECT UserId, Name, LastName, Birthday_date, School_Name, Enrollment_Date
+                        SELECT *
                         FROM Users
-                        Where Enrollment_Date  IS NOT NULL and School_Name is not null
+                        INNER JOIN Role on Users.TypeOfUser = Role.Name
+                        INNER JOIN UserRole on Users.UserId = UserRole.UserId
+                        WHERE UserRole.RoleId = 6
                         ";
                 var highSchoolStudentsList = db.Database.SqlQuery<HighSchoolStudentsQueryModel>(query).ToList();
-
-                foreach (var student in highSchoolStudentsList)
-                {
-                    student.UserRoles = db.UserRole.Include("Role").Where(ur => ur.UserId == student.UserId).ToList();
-                }
-
                 return highSchoolStudentsList;
             }
         }

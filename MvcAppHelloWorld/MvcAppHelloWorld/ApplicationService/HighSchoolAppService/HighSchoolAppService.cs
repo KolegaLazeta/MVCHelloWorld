@@ -10,6 +10,7 @@ namespace MvcAppHelloWorld
 {
     public class HighSchoolAppService : GenericAppService<HighSchoolViewModel, HighSchool>
     {
+        private readonly IMapper mapper;
 
         public HighSchoolAppService(IGenericService<HighSchool> genericService, IMapper mapper) : base(genericService, mapper)
         {

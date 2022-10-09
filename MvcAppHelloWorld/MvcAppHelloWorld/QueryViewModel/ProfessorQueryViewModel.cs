@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace DataAccess
+namespace MvcAppHelloWorld
 {
-    public class ProfessorQueryModel : UserQueryModel
+    public class ProfessorQueryViewModel : UsersQueryViewModel
     {
         public string ClassSubject { get; set; }
         public string Cabinet { get; set; }

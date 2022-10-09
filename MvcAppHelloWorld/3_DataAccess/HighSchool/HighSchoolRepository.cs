@@ -8,11 +8,13 @@ namespace DataAccess
 {
     public class HighSchoolRepository : GenericRepository<HighSchool>
     {
+        private readonly TuxContext _context;
         private TuxContext db = null;
 
         public HighSchoolRepository()
         {
             this.db = new TuxContext();
+
         }
         public override IEnumerable<HighSchool> Search(string searchString)
         {
@@ -79,6 +81,10 @@ namespace DataAccess
                 }
             }
         }
+        public override List<HighSchool> GetList()
+        {
+            return db.HighSchool.Include("UserRole").ToList();
+        }
 
         public override void Create(HighSchool highSchool)
         {
@@ -86,16 +92,5 @@ namespace DataAccess
             db.UserRole.AddRange(highSchool.UserRole);
             db.SaveChanges();
         }
-        //public override void Delete(int id)
-        //{
-        //    var userRole = db.UserRole.Where(ur => ur.UserId == id);
-        //    db.UserRole.RemoveRange(userRole);
-        //    db.Users.Remove(GetByID(id));
-        //}
-        public override List<HighSchool> GetList()
-        {
-            return db.HighSchool.Include("UserRole").ToList();
-        }
-
     }
 }

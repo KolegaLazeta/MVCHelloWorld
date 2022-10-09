@@ -8,7 +8,10 @@
 <h2>Roles</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create", "Roles", new { @class = "btn btn-dark btn-sm" })
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Create New", "Create", "Roles", new { @class = "btn btn-success btn-sm" })
+    }
 </p>
 <table class="table table-striped">
     <tr>

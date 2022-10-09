@@ -19,6 +19,7 @@ namespace MvcAppHelloWorld
         [Required(ErrorMessage = "Filed is required")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Filed is required")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
         public string Phone_Number { get; set; }
         public string House_Address { get; set; }

@@ -19,6 +19,7 @@ namespace BusinessObjectModel
         public string Password { get; set; }
         public string Phone_Number { get; set; }
         public string House_Address { get; set; }
+        public List<Role> Role { get; set; }
         [ForeignKey("UserId")]
         public List<UserRole> UserRole { get; set; }
     }

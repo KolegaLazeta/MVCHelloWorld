@@ -29,18 +29,20 @@ namespace MvcAppHelloWorld
                     config.CreateMap<College, CollegeViewModel>();
                     config.CreateMap<CollegeViewModel, College>();
 
-
                     config.CreateMap<Professor, ProfessorViewModel>();
                     config.CreateMap<ProfessorViewModel, Professor>();
 
-                    config.CreateMap<ProfessorViewModel, ProfessorQueryModel>();
-                    config.CreateMap<ProfessorQueryModel, ProfessorViewModel>();
+                    config.CreateMap<ProfessorQueryViewModel, ProfessorQueryModel>();
+                    config.CreateMap<ProfessorQueryModel, ProfessorQueryViewModel>();
 
-                    config.CreateMap<HighSchoolViewModel, HighSchoolStudentsQueryModel>();
-                    config.CreateMap<HighSchoolStudentsQueryModel, HighSchoolViewModel>();
+                    config.CreateMap<HighSchoolStudentsQueryViewModel, HighSchoolStudentsQueryModel>();
+                    config.CreateMap<HighSchoolStudentsQueryModel, HighSchoolStudentsQueryViewModel>();
 
-                    config.CreateMap<CollegeViewModel, CollegeStudentsQueryModel>();
-                    config.CreateMap<CollegeStudentsQueryModel, CollegeViewModel>();
+                    config.CreateMap<CollegeStudentsQueryViewModel, CollegeStudentsQueryModel>();
+                    config.CreateMap<CollegeStudentsQueryModel, CollegeStudentsQueryViewModel>();
+
+                    config.CreateMap<RoleQueryViweModel, RoleQueryModel>();
+                    config.CreateMap<RoleQueryModel, RoleQueryViweModel>();
 
                 });
             return mapperCofiguration;

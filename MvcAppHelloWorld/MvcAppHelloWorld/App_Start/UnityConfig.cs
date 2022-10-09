@@ -49,9 +49,9 @@ namespace MvcAppHelloWorld
             container.RegisterType<IGenericAppService<ProfessorViewModel, Professor>, ProfessorAppService>();
 
             //IGenericAppService - GenericAppservice<ViewModelType, Querytype>
-            container.RegisterType<IGenericAppService<HighSchoolViewModel, HighSchoolStudentsQueryModel>, GenericAppService<HighSchoolViewModel, HighSchoolStudentsQueryModel>>();
-            container.RegisterType<IGenericAppService<CollegeViewModel, CollegeStudentsQueryModel>, GenericAppService<CollegeViewModel, CollegeStudentsQueryModel>>();
-            container.RegisterType<IGenericAppService<ProfessorViewModel, ProfessorQueryModel>, GenericAppService<ProfessorViewModel, ProfessorQueryModel>>();
+            container.RegisterType<IGenericAppService<HighSchoolStudentsQueryViewModel, HighSchoolStudentsQueryModel>, GenericAppService<HighSchoolStudentsQueryViewModel, HighSchoolStudentsQueryModel>>();
+            container.RegisterType<IGenericAppService<CollegeStudentsQueryViewModel, CollegeStudentsQueryModel>, GenericAppService<CollegeStudentsQueryViewModel, CollegeStudentsQueryModel>>();
+            container.RegisterType<IGenericAppService<ProfessorQueryViewModel, ProfessorQueryModel>, GenericAppService<ProfessorQueryViewModel, ProfessorQueryModel>>();
 
 
             // e.g. container.RegisterType<ITestService, TestService>();

@@ -41,7 +41,7 @@ namespace Controllers
             {
                 _service.EditDetails(obj);
                 _service.Save();
-                return View("Details", obj);
+                return RedirectToAction("Index");
             }
             return View(obj);
 
@@ -55,13 +55,13 @@ namespace Controllers
         [HttpPost]
         public virtual ActionResult Save (TViewModel obj)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 _service.Create(obj);
                 _service.Save();
                 return View("Details", obj);
-            }
-            return View(obj);
+            //}
+            //return RedirectToAction("Create", obj);
         }
 
         public ActionResult Delete(int id)

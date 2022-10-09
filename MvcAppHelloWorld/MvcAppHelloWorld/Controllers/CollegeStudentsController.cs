@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DataAccess;
 using System.Web.Mvc;
+using AutoMapper;
 
 namespace Controllers
 {
@@ -12,12 +13,12 @@ namespace Controllers
     public class CollegeStudentsController : GenericController<CollegeViewModel, College>
     {
         private readonly IGenericAppService<CollegeViewModel, College> _collegeService;
-        private readonly IGenericAppService<CollegeViewModel, CollegeStudentsQueryModel> _collegeQuery;
+        private readonly IGenericAppService<CollegeStudentsQueryViewModel, CollegeStudentsQueryModel> _collegeQuery;
         private readonly IGenericAppService<RoleViewModel, Role> _roleService;
 
         public CollegeStudentsController(IGenericAppService<CollegeViewModel, College> collegeService, 
-            IGenericAppService<RoleViewModel, Role> roleService,
-            IGenericAppService<CollegeViewModel, CollegeStudentsQueryModel> collegeQuery) : base(collegeService)
+            IGenericAppService<RoleViewModel, Role> roleService, IMapper mapper,
+            IGenericAppService<CollegeStudentsQueryViewModel, CollegeStudentsQueryModel> collegeQuery) : base(collegeService)
         {
             _collegeService = collegeService;
             _roleService = roleService;
@@ -29,15 +30,15 @@ namespace Controllers
             var listOFCollegeStudents = _collegeQuery.GetList();
             return View(listOFCollegeStudents);
         }
-
+        [Authorize(Roles = "Professor")]
         public override ActionResult Save(CollegeViewModel college)
         {
             college.UserRole = new List<UserRole>();
 
-            var userRole = new UserRole
+            UserRole userRole = new UserRole
             {
                 UserId = college.UserId,
-                RoleId = _roleService.GetList().FirstOrDefault(ur => ur.Name == "Professor").RoleId
+                RoleId = _roleService.GetList().FirstOrDefault(ur => ur.Name == "College").RoleId
             };
 
             college.UserRole.Add(userRole);

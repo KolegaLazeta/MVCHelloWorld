@@ -218,6 +218,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryViewModel\CollegeStudentsQueryViewModel.cs" />
+    <Compile Include="QueryViewModel\HighSchoolStudentsQueryViewModel.cs" />
+    <Compile Include="QueryViewModel\ProfessorQueryViewModel.cs" />
+    <Compile Include="QueryViewModel\RoleQueryViweModel.cs" />
+    <Compile Include="QueryViewModel\UsersQueryViewModel.cs" />
     <Compile Include="ViewModels\CollegeViewModel.cs" />
     <Compile Include="ViewModels\GenericViewModel.cs" />
     <Compile Include="ViewModels\HighSchoolViewModel.cs" />

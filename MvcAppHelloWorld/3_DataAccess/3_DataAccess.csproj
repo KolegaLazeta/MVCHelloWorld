@@ -132,6 +132,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="QueryModel\RoleQueryModel.cs" />
     <Compile Include="QueryRepository\CollegeStudentsQueryRepository.cs" />
     <Compile Include="College\CollegeRepository.cs" />
     <Compile Include="QueryRepository\HighSchoolStudentsQueryRepository.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="QueryModel\HighSchoolStudentsQueryModel.cs" />
     <Compile Include="QueryModel\ProfessorQueryModel.cs" />
     <Compile Include="QueryModel\UserQueryModel.cs" />
+    <Compile Include="QueryRepository\RoleQueryRepository.cs" />
     <Compile Include="Roles\RolesRepository.cs" />
     <Compile Include="Generic\IGenericRepository.cs" />
     <Compile Include="Generic\GenericRepository.cs" />

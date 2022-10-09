@@ -12,7 +12,5 @@ namespace MvcAppHelloWorld
         public int RoleId { get; set; }
         [Required(ErrorMessage = "Filed is required")]
         public string Name { get; set; }
-        public List<Users> Users { get; set; }
-        public List<UserRole> UserRole { get; set; }
     }
 }
