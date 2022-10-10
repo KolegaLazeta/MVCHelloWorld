@@ -30,6 +30,14 @@ namespace Controllers
             var listOfHighSchoolStudents = _highSchoolQuery.GetList();
             return View("Index", listOfHighSchoolStudents);
         }
+
+        public override ActionResult Search(string searchString)
+        {
+            var content = _highSchoolQuery.Search(searchString);
+            return View("Index", content);
+        }
+
+
         [Authorize(Roles = "Professor")]
         public override ActionResult Save(HighSchoolViewModel highSchool)
         {

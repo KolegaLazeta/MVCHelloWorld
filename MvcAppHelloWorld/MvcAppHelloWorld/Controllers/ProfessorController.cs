@@ -32,7 +32,11 @@ namespace Controllers
             var list = _professorQueryService.GetList();
             return View(list);
         }
-
+        public override ActionResult Search(string searchString)
+        {
+            var content = _professorQueryService.Search(searchString);
+            return View("Index", content);
+        }
         public override ActionResult Save(ProfessorViewModel professor)
         {
             professor.UserRole = new List<UserRole>();

@@ -16,31 +16,7 @@ namespace DataAccess
             this.db = new TuxContext();
 
         }
-        public override IEnumerable<HighSchool> Search(string searchString)
-        {
-            using (var db = new TuxContext())
-            {
-                var students = from m in db.HighSchool
-                               select m;
-
-                if (string.IsNullOrEmpty(searchString))
-                {
-                    return db.HighSchool.ToList();
-                }
-                else
-                {
-                    return db.HighSchool.ToList().Where(s => s.Name.Contains(searchString) |
-                                                     s.Lastname.Contains(searchString) |
-                                                     s.Email.Contains(searchString) |
-                                                     s.House_Address.Contains(searchString) |
-                                                     s.Birthday_date.ToString().Contains(searchString) |
-                                                     s.Phone_Number.ToString().Contains(searchString) |
-                                                     s.School_Name.Contains(searchString) |
-                                                     s.Enrollment_date.ToString().Contains(searchString));
-
-                }
-            }
-        }
+        
 
         public override void Export(int id)
         {

@@ -22,5 +22,13 @@ namespace DataAccess
                 return professorList;
             }
         }
-    }
-}
+        public override IEnumerable<ProfessorQueryModel> Search(string searchString)
+        {
+           return GetList().Where(s => s.Name.Contains(searchString) |
+                                                     s.LastName.Contains(searchString) |
+                                                     s.ClassSubject.Contains(searchString) |
+                                                     s.Cabinet.ToString().Contains(searchString));
+
+                }
+            }
+        }

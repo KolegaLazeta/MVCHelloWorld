@@ -48,6 +48,12 @@ namespace Controllers
             return RedirectToAction("Index");
 
         }
+
+        public override ActionResult Search(string searchString)
+        {
+            var content = _collegeQuery.Search(searchString);
+            return View("Index", content);
+        }
         public override ActionResult Details(int id)
         {
             CollegeViewModel viewModel = _collegeService.GetByID(id);

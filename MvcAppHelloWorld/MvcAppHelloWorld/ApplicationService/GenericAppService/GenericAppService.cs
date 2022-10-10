@@ -40,7 +40,7 @@ namespace MvcAppHelloWorld
             _genericService.EditDetails(model);
         }
 
-        public IEnumerable<TViewModel> Search(string searchString)
+        public virtual IEnumerable<TViewModel> Search(string searchString)
         {
             List<TModel> models = _genericService.Search(searchString).ToList();
             List<TViewModel> viewModels = _mapper.Map<List<TViewModel>>(models);

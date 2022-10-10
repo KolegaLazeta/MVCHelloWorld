@@ -71,7 +71,7 @@ namespace Controllers
                 return RedirectToAction("Index");
         }
 
-        public ActionResult Search(string searchString)
+        public virtual ActionResult Search(string searchString)
         {
            var content = _service.Search(searchString);
             return View("Index", content);

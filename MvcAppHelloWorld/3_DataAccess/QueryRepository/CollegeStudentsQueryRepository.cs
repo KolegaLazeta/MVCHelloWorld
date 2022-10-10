@@ -20,5 +20,13 @@ namespace DataAccess
                 return colelgeStudentsList;
             }
         }
+        public override IEnumerable<CollegeStudentsQueryModel> Search(string searchString)
+        {
+            return GetList().Where(s => s.Name.Contains(searchString) |
+                                                     s.LastName.Contains(searchString) |
+                                                     s.College_Name.Contains(searchString) |
+                                                     s.Generation_of_Student.ToString().Contains(searchString));
+
+        }
     }
 }

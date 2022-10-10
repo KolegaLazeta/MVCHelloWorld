@@ -20,5 +20,13 @@ namespace DataAccess
                 return highSchoolStudentsList;
             }
         }
-    }
-}
+        public override IEnumerable<HighSchoolStudentsQueryModel> Search(string searchString)
+        {
+            return GetList().Where(s => s.Name.Contains(searchString) |
+                                                     s.LastName.Contains(searchString) |
+                                                     s.School_Name.Contains(searchString) |
+                                                     s.Enrollment_Date.ToString().Contains(searchString));
+
+        }
+     }
+ }

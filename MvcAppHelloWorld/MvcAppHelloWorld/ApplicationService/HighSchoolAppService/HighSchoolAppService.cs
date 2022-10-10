@@ -14,6 +14,7 @@ namespace MvcAppHelloWorld
 
         public HighSchoolAppService(IGenericService<HighSchool> genericService, IMapper mapper) : base(genericService, mapper)
         {
+
         }
 
       
