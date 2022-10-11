@@ -12,6 +12,7 @@ namespace BusinessLayer
         void EditDetails(T obj);
         void Create(T obj);
         void Delete(int id);
+        T GetUserByCredentials(string email, string password);
         void Save();
     }
 }

@@ -15,6 +15,7 @@ namespace MvcAppHelloWorld
         void EditDetails(TViewModel viewModel);
         void Create(TViewModel viewModel);
         void Delete(int id);
+        TViewModel GetUserByCredentials(string email, string password);
         void Save();
     }
 }

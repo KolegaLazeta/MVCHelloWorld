@@ -51,6 +51,10 @@ namespace DataAccess
         {
             
         }
+        public virtual T GetUserByCredentials(string email, string password)
+        {
+            return null;
+        }
         public void Save()
         {
             _context.SaveChanges();

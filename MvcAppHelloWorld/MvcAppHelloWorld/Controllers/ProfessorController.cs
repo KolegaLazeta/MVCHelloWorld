@@ -9,7 +9,7 @@ using DataAccess;
 
 namespace Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Professor")]
     public class ProfessorController : GenericController<ProfessorViewModel, Professor>
     {
         private readonly IGenericAppService<ProfessorViewModel, Professor> _professorService;
@@ -25,7 +25,7 @@ namespace Controllers
             _professorQueryService = professorQueryService;
         }
 
-        [Authorize(Roles = "Admin, Professor")]
+        [Authorize(Roles = "Admin")]
 
         public override ActionResult Index()
         {
@@ -73,7 +73,7 @@ namespace Controllers
         {
             ProfessorViewModel usersViewModel = _professorService.GetByID(_professorService.GetList().FirstOrDefault(u => u.Email == User.Identity.Name).UserId);
 
-            return View(usersViewModel);
+            return View("Profile", usersViewModel);
         }
     }
 }

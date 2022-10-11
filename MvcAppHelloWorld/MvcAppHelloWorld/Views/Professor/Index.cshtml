@@ -36,7 +36,7 @@
             @Html.DisplayNameFor(model => model.ClassSubject)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Lastname)
+            @Html.DisplayNameFor(model => model.Cabinet)
         </th>
         <th></th>
     </tr>
@@ -61,7 +61,7 @@
                 @if (User.IsInRole("Admin"))
                 {
                     @Html.ActionLink("Edit", "Edit", new { id = item.UserId }, new { @class = "btn btn-primary btn-sm" })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.UserId }, new { @class = "btn btn-danger btn-sm" })
+                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal-@item.UserId">Delete</button>
 
                 }
             </td>

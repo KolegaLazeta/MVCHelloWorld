@@ -68,15 +68,15 @@
                 <td>
                     @Html.ActionLink("Details", "Details", new { id = item.UserId }, new { @class = "btn btn-info btn-sm" })
                     @Html.ActionLink("Edit", "Edit", new { id = item.UserId }, new { @class = "btn btn-primary btn-sm" })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.UserId }, new { @class = "btn btn-danger btn-sm" })
+                    @*@Html.ActionLink("Delete", "Delete", new { id = item.UserId }, new { @class = "btn btn-danger btn-sm" })*@
 
-                    @*<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal">Delete</button>*@
+                    <button type="button" class="btn btn-danger btn-sm" data-target="#exampleModal-@item.UserId" data-toggle="modal">Delete</button>
                 </td>
             }
         </tr>
-
-        @Html.Partial("_Modal", Model)
-    }
+        }
+        @Html.Partial("_Modal")
+  
 </table>
 
 

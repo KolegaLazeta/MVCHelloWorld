@@ -25,9 +25,9 @@ namespace DataAccess
                 var model = db.HighSchool.Find(id);
 
                 string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                string downloadArea = Path.Combine(@"C:\\Users\\apetras\\Desktop");
+                string downloadArea = Path.Combine(@"C:\\Users\\lmlad\\Desktop");
 
-                using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, downloadArea, "Student Details.txt")))
+                using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, downloadArea, "High School Student Details.txt")))
                 {
 
                     try

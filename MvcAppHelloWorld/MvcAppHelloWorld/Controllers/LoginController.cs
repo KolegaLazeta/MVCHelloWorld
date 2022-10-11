@@ -23,39 +23,38 @@ namespace MvcAppHelloWorld.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(Login login)
+        public ActionResult Login(UsersViewModel user)
         {
-            
-            {
-                var user = _service.GetList().FirstOrDefault(a => a.Email == login.Email && a.Password == login.Password);
+            var existingUser = _service.GetUserByCredentials(user.Email, user.Password);
+
                 if (user != null)
                 {
-                    var Ticket = new FormsAuthenticationTicket(login.Email, true, 3000);
+                    var Ticket = new FormsAuthenticationTicket(user.Email, true, 3000);
                     string Encrypt = FormsAuthentication.Encrypt(Ticket);
                     var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, Encrypt);
                     cookie.Expires = DateTime.Now.AddHours(3000);
                     cookie.HttpOnly = true;
                     Response.Cookies.Add(cookie);
 
-                    if (user.UserRole.FirstOrDefault(ur => ur.Role.Name == "Admin") != null)
+                    if (existingUser.UserRole.FirstOrDefault(ur => ur.Role.Name == "Admin") != null)
                     {
                         return RedirectToAction("Index", "Admin");
                     }
-                    if (user.UserRole.FirstOrDefault(ur => ur.Role.Name == "Professor") != null)
+                    if (existingUser.UserRole.FirstOrDefault(ur => ur.Role.Name == "Professor") != null)
                     {
                         return RedirectToAction("Index", "Home");
                     }
-                    if (user.UserRole.FirstOrDefault(ur => ur.Role.Name == "College") != null)
+                    if (existingUser.UserRole.FirstOrDefault(ur => ur.Role.Name == "College") != null)
                     {
                         return RedirectToAction("Index", "Home");
                     }
-                    if (user.UserRole.FirstOrDefault(ur => ur.Role.Name == "HighSchol") != null)
+                    if (existingUser.UserRole.FirstOrDefault(ur => ur.Role.Name == "HighSchol") != null)
                     {
                         return RedirectToAction("Index", "Home");
                     }
                 }
-                return View("Login");
-            }
+                return RedirectToAction("Index");
+
         }
         public ActionResult Logout()
         {

@@ -29,10 +29,10 @@
                         if (User.IsInRole("Admin"))
                         {
                             <li>@Html.ActionLink("Admin area", "Index", "Admin")</li>
+                            <li><a href="@Url.Action("Index","Professor")">Professors</a></li>
                             <li>@Html.ActionLink("College Students", "Index", "CollegeStudents")</li>
                             <li>@Html.ActionLink("High School Students", "Index", "HighSchoolStudents")</li>
                             <li>@Html.ActionLink("Roles", "Index", "Roles")</li>
-                            <li><a href="@Url.Action("Index","Professor")">Professors</a></li>
 
                         }
 

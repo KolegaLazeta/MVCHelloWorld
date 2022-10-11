@@ -9,8 +9,10 @@ namespace BusinessObjectModel
 {
     public class Login
     {
+        [Required]
         public string Email { get; set; }
         [DataType(DataType.Password)]
+        [Required]
         public string Password { get; set; }
     }
 }

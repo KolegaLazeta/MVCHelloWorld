@@ -47,6 +47,11 @@ namespace BusinessLayer
             _repository.Delete(id);
         }
 
+        public T GetUserByCredentials(string email, string password)
+        {
+            return _repository.GetUserByCredentials(email, password);
+        }
+
         public void Save()
         {
             _repository.Save();

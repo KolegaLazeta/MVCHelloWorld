@@ -20,5 +20,18 @@ namespace DataAccess
             }
 
         }
+
+        public override Users GetUserByCredentials(string email, string password)
+        {
+            using( var db = new TuxContext())
+            {
+                var user = GetList().FirstOrDefault(u => u.Email == email && u.Password == password);
+                if(user != null)
+                {
+                    user.UserRole = db.UserRole.Include(ur => ur.Role).Where(u => u.UserId == user.UserId).ToList();
+                }
+                return user;
+            }
+        }
     }
 }

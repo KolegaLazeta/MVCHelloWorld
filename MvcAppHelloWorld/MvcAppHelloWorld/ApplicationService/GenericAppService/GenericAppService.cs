@@ -65,6 +65,17 @@ namespace MvcAppHelloWorld
             _genericService.Delete(id);
         }
 
+        public TViewModel GetUserByCredentials(string email, string password)
+        {
+            var user = _genericService.GetUserByCredentials(email, password);
+            if(user != null)
+            {
+                TViewModel existingUser = _mapper.Map<TViewModel>(user);
+                return existingUser;
+            }
+            return null;
+        }
+
         public void Save()
         {
             _genericService.Save();
