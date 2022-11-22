@@ -1,11 +1,9 @@
 ﻿using BusinessObjectModel;
-using BusinessLayer;
-using System.Web.Mvc;
-using System.Web.Security;
+using DataAccess;
+using MvcAppHelloWorld;
 using System.Collections.Generic;
 using System.Linq;
-using MvcAppHelloWorld;
-using DataAccess;
+using System.Web.Mvc;
 
 namespace Controllers
 {
@@ -17,7 +15,7 @@ namespace Controllers
         private readonly IGenericAppService<RoleViewModel, Role> _roleAppService;
 
         public HighSchoolStudentsController(IGenericAppService<HighSchoolViewModel, HighSchool> highSchoolService,
-            IGenericAppService<RoleViewModel,Role> roleService,
+            IGenericAppService<RoleViewModel, Role> roleService,
             IGenericAppService<HighSchoolStudentsQueryViewModel, HighSchoolStudentsQueryModel> highSchoolQuery) : base(highSchoolService)
         {
             _highSchoolService = highSchoolService;

@@ -10,11 +10,9 @@ namespace DataAccess
             using (var db = new TuxContext())
             {
                 var query = @"
-                        SELECT *
+                        SELECT UserId, Name, Lastname, School_Name, Enrollment_date
                         FROM Users
-                        INNER JOIN Role on Users.TypeOfUser = Role.Name
-                        INNER JOIN UserRole on Users.UserId = UserRole.UserId
-                        WHERE UserRole.RoleId = 6
+                        WHERE School_Name is not null
                         ";
                 var highSchoolStudentsList = db.Database.SqlQuery<HighSchoolStudentsQueryModel>(query).ToList();
                 return highSchoolStudentsList;
@@ -28,5 +26,5 @@ namespace DataAccess
                                                      s.Enrollment_Date.ToString().Contains(searchString));
 
         }
-     }
- }
+    }
+}

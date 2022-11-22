@@ -80,7 +80,7 @@ namespace Controllers
         public ActionResult Export(int id)
         {
             _service.Export(id);
-            return RedirectToAction("Index"); //spravit nak vodi na akciju keru spravim za textdownloadnotification
+            return RedirectToAction("Index"); 
         }
 
     }

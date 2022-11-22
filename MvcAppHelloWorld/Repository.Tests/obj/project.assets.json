@@ -7094,19 +7094,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\lmlad\\.nuget\\packages\\": {}
+    "C:\\Users\\koleg\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\GitProjects\\MVCHelloWorld\\MvcAppHelloWorld\\Repository.Tests\\Repository.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\koleg\\C#\\MVCHelloWorld\\MvcAppHelloWorld\\Repository.Tests\\Repository.Tests.csproj",
       "projectName": "Repository.Tests",
-      "projectPath": "D:\\GitProjects\\MVCHelloWorld\\MvcAppHelloWorld\\Repository.Tests\\Repository.Tests.csproj",
-      "packagesPath": "C:\\Users\\lmlad\\.nuget\\packages\\",
-      "outputPath": "D:\\GitProjects\\MVCHelloWorld\\MvcAppHelloWorld\\Repository.Tests\\obj\\",
+      "projectPath": "C:\\Users\\koleg\\C#\\MVCHelloWorld\\MvcAppHelloWorld\\Repository.Tests\\Repository.Tests.csproj",
+      "packagesPath": "C:\\Users\\koleg\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\koleg\\C#\\MVCHelloWorld\\MvcAppHelloWorld\\Repository.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\lmlad\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\koleg\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7120,17 +7120,17 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "D:\\GitProjects\\MVCHelloWorld\\MvcAppHelloWorld\\3_DataAccess\\3_DataAccess.csproj": {
-              "projectPath": "D:\\GitProjects\\MVCHelloWorld\\MvcAppHelloWorld\\3_DataAccess\\3_DataAccess.csproj"
+            "C:\\Users\\koleg\\C#\\MVCHelloWorld\\MvcAppHelloWorld\\3_DataAccess\\3_DataAccess.csproj": {
+              "projectPath": "C:\\Users\\koleg\\C#\\MVCHelloWorld\\MvcAppHelloWorld\\3_DataAccess\\3_DataAccess.csproj"
             },
-            "D:\\GitProjects\\MVCHelloWorld\\MvcAppHelloWorld\\4_BusinessObjectModel\\4_BusinessObjectModel.csproj": {
-              "projectPath": "D:\\GitProjects\\MVCHelloWorld\\MvcAppHelloWorld\\4_BusinessObjectModel\\4_BusinessObjectModel.csproj"
+            "C:\\Users\\koleg\\C#\\MVCHelloWorld\\MvcAppHelloWorld\\4_BusinessObjectModel\\4_BusinessObjectModel.csproj": {
+              "projectPath": "C:\\Users\\koleg\\C#\\MVCHelloWorld\\MvcAppHelloWorld\\4_BusinessObjectModel\\4_BusinessObjectModel.csproj"
             },
-            "D:\\GitProjects\\MVCHelloWorld\\MvcAppHelloWorld\\BusinessLayer\\2_BusinessLayer.csproj": {
-              "projectPath": "D:\\GitProjects\\MVCHelloWorld\\MvcAppHelloWorld\\BusinessLayer\\2_BusinessLayer.csproj"
+            "C:\\Users\\koleg\\C#\\MVCHelloWorld\\MvcAppHelloWorld\\BusinessLayer\\2_BusinessLayer.csproj": {
+              "projectPath": "C:\\Users\\koleg\\C#\\MVCHelloWorld\\MvcAppHelloWorld\\BusinessLayer\\2_BusinessLayer.csproj"
             },
-            "D:\\GitProjects\\MVCHelloWorld\\MvcAppHelloWorld\\MvcAppHelloWorld\\1_Presentation.csproj": {
-              "projectPath": "D:\\GitProjects\\MVCHelloWorld\\MvcAppHelloWorld\\MvcAppHelloWorld\\1_Presentation.csproj"
+            "C:\\Users\\koleg\\C#\\MVCHelloWorld\\MvcAppHelloWorld\\MvcAppHelloWorld\\1_Presentation.csproj": {
+              "projectPath": "C:\\Users\\koleg\\C#\\MVCHelloWorld\\MvcAppHelloWorld\\MvcAppHelloWorld\\1_Presentation.csproj"
             }
           }
         }
@@ -7184,12 +7184,26 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[3.1.10, 3.1.10]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[3.1.0, 3.1.0]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[3.1.0, 3.1.0]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.410\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
       }
     }
   }

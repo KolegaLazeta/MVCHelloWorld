@@ -1,2 +1,0 @@
-D:\ProjectsGIT\MvcAppHelloWorld\MvcAppHelloWorld\MVCAppHelloWorld_Tests\obj\Debug\MVCAppHelloWorld_Tests.csproj.AssemblyReference.cache
-D:\ProjectsGIT\MvcAppHelloWorld\MvcAppHelloWorld\MVCAppHelloWorld_Tests\obj\Debug\MVCAppHelloWorld_Tests.csproj.CoreCompileInputs.cache

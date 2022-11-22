@@ -7,7 +7,6 @@ namespace BusinessLayer
     {
         private IGenericRepository<T> _repository;
 
-
         public GenericService(IGenericRepository<T> repository)
         {
             _repository = repository;
@@ -57,7 +56,7 @@ namespace BusinessLayer
             _repository.Save();
         }
 
-       
+
 
     }
 }

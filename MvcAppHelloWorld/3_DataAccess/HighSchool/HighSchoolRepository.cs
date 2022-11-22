@@ -1,8 +1,8 @@
 ﻿using BusinessObjectModel;
-using System.Collections.Generic;
-using System.Linq;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace DataAccess
 {
@@ -16,7 +16,7 @@ namespace DataAccess
             this.db = new TuxContext();
 
         }
-        
+
 
         public override void Export(int id)
         {
@@ -25,7 +25,7 @@ namespace DataAccess
                 var model = db.HighSchool.Find(id);
 
                 string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                string downloadArea = Path.Combine(@"C:\\Users\\lmlad\\Desktop");
+                string downloadArea = Path.Combine(@"C:\\Users\\koleg\\Desktop");
 
                 using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, downloadArea, "High School Student Details.txt")))
                 {

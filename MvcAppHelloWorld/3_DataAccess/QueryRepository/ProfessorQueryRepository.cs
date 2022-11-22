@@ -11,11 +11,9 @@ namespace DataAccess
             {
 
                 var query = @"
-                        SELECT *
+                        SELECT UserId, Name, Lastname, Cabinet, ClassSubject
                         FROM Users
-                        INNER JOIN Role on Users.TypeOfUser = Role.Name
-                        INNER JOIN UserRole on Users.UserId = UserRole.UserId
-                        Where Cabinet  IS NOT NULL and ClassSubject is not null
+                        WHERE Cabinet is not null
                         ";
                 var professorList = db.Database.SqlQuery<ProfessorQueryModel>(query).ToList();
 
@@ -24,11 +22,11 @@ namespace DataAccess
         }
         public override IEnumerable<ProfessorQueryModel> Search(string searchString)
         {
-           return GetList().Where(s => s.Name.Contains(searchString) |
-                                                     s.LastName.Contains(searchString) |
-                                                     s.ClassSubject.Contains(searchString) |
-                                                     s.Cabinet.ToString().Contains(searchString));
+            return GetList().Where(s => s.Name.Contains(searchString) |
+                                                      s.LastName.Contains(searchString) |
+                                                      s.ClassSubject.Contains(searchString) |
+                                                      s.Cabinet.ToString().Contains(searchString));
 
-                }
-            }
         }
+    }
+}

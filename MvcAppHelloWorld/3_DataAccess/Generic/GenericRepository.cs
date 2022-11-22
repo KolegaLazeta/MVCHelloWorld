@@ -49,7 +49,7 @@ namespace DataAccess
 
         public virtual void Export(int id)
         {
-            
+
         }
         public virtual T GetUserByCredentials(string email, string password)
         {

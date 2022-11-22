@@ -10,11 +10,9 @@ namespace DataAccess
             using (var db = new TuxContext())
             {
                 var query = @"
-                        SELECT *
+                        SELECT UserId, Name, Lastname, College_Name, Generation_of_Student
                         FROM Users
-                        INNER JOIN Role on Users.TypeOfUser = Role.Name
-                        INNER JOIN UserRole on Users.UserId = UserRole.UserId
-                        WHERE UserRole.RoleId = 4
+                        WHERE College_Name is not null
                         ";
                 var colelgeStudentsList = db.Database.SqlQuery<CollegeStudentsQueryModel>(query).ToList();
                 return colelgeStudentsList;
